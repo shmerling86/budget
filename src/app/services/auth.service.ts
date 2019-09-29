@@ -4,7 +4,6 @@ import { FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { User } from 'src/app/interfaces/user';
 import { WallService } from './wall.service';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -41,7 +40,7 @@ export class AuthService {
 
   login(user) {
     this.isConfirmedDetails = false;
-    const loginURL = `${environment.apiUrl}/users?email=${user.value.email}&password=${user.value.password}`
+    const loginURL = `${this.API_URL}/users?email=${user.value.email}&password=${user.value.password}`
     this.http.get(loginURL)
       .subscribe(
         res => {
@@ -77,7 +76,7 @@ export class AuthService {
     this.activeUser = e.value;
     this.activeUser.since = moment().format();
     this.activeUser.status = 'Pending';
-    this.http.post(`${environment.apiUrl}/users`, this.activeUser)
+    this.http.post(`${this.API_URL}/users`, this.activeUser)
       .subscribe(
         res => { },
         err => { console.log(err) }

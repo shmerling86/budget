@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from "ngx-spinner";
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
@@ -148,7 +147,7 @@ export class DashboardComponent implements OnInit {
     this.getExpensesData();
   }
 
-  changeYear(year) {
+  changeYear(year?) {
     this.selectedIndex = 0;
     if (year == 'future' && this.dashboardYear != 2020) {
       this.dashboardYear = this.dashboardYear + 1;

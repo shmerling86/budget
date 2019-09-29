@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import { Office } from 'src/app/interfaces/office';
 import { WallService } from 'src/app/services/wall.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-wall',

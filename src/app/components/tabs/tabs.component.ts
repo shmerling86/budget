@@ -13,7 +13,7 @@ export class TabsComponent implements OnInit {
   isWall: boolean = false;
 
   constructor(
-    private wallService: WallService,
+    public wallService: WallService,
     public authService: AuthService
   ) { }
 
