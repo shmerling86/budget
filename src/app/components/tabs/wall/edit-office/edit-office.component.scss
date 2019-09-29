@@ -1,0 +1,30 @@
+.form-group {
+  select.ng-touched.ng-invalid,
+  input.ng-touched.ng-invalid {
+    border: 1px solid #dc3545;
+  }
+  select.ng-touched.ng-valid,
+  input.ng-touched.ng-valid {
+    border: 1px solid rgba(0, 128, 0, 0.5);
+  }
+  span {
+    color: #dc3545;
+    font-size: 0.85em;
+  }
+}
+
+.modal-footer {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .icons {
+    padding: 0.6em;
+    button {
+      img {
+        width: 2em;
+      }
+    }
+  }
+}

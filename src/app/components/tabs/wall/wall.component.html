@@ -1,0 +1,162 @@
+<div class="search-wraper" *ngIf='!isAddingOpen && !isAddingExpenseOpen'>
+    <div>
+        <p *ngIf='wallService.text.length !== 0 && wallService.resultStack.length === 0' class="alert alert-danger">
+            No results containing your search terms
+        </p>
+        <div>
+            <input type="text" *ngIf='isSearchByOffice else searchByYear' class="search" placeholder="Office..."
+                [(ngModel)]="wallService.text" (ngModelChange)='wallService.resultsBySearchText()' autofocus>
+            <hr>
+        </div>
+        <ng-template #searchByYear>
+            <input type="text" class="search" placeholder="Year..." [(ngModel)]="wallService.text"
+                (ngModelChange)='wallService.resultsBySearchText("year")' autofocus>
+            <hr>
+        </ng-template>
+    </div>
+    <img [style.display]="wallService.text || this.wallService.selectedResults.length != 0 ? 'none' : 'flex'"
+        class="set-img ml-3" src="https://img.icons8.com/color/100/000000/gear.png" (clickOutside)="onClickedOutside()"
+        (click)='isOptionsOpen = !isOptionsOpen' />
+</div>
+
+<div class="setting-wraper" [style.display]="isOptionsOpen ? 'flex' : 'none'">
+    <div class="settings-box">
+        <a (click)='changeSearchKey()'><img src="https://img.icons8.com/doodle/45/000000/search--v2.png">
+            Search by {{ isSearchByOffice ? 'year' : 'office' }} key</a>
+        <a (click)="isAddingOpen = !isAddingOpen;onClickedOutside()">
+            <img src="https://img.icons8.com/plasticine/100/000000/add.png">
+            Add new Office
+        </a>
+        <a (click)="isAddingExpenseOpen = !isAddingExpenseOpen;onClickedOutside()">
+            <img src="https://img.icons8.com/color/100/000000/add.png">
+            Add new Expense
+        </a>
+        <a (click)='isOptionsOpen = !isOptionsOpen'><img
+                src="https://img.icons8.com/plasticine/100/000000/close-window.png">
+            Drop it</a>
+    </div>
+</div>
+
+<div class="form-wraper" *ngIf='isAddingOpen'>
+    <div style="padding: 3em">
+        <h2 style="text-align: center;">NEW OFFICE</h2>
+        <img style="text-align: center;margin: 3.7em;" src="https://img.icons8.com/plasticine/100/000000/add.png">
+    </div>
+    <form [formGroup]='addForm' (ngSubmit)='onAddItem()'>
+        <div class="form-group">
+            <label for="office">Office</label>
+            <input type="text" class="form-control" formControlName='office'>
+            <span *ngIf="!addForm.get('office').valid && addForm.get('office').touched">
+                <span *ngIf="addForm.get('office').errors['required']" class="form-text">Office name is
+                    required</span>
+                <span *ngIf="addForm.get('office').errors['nameIsForbidden']" class="form-text">This title
+                    is
+                    already exist</span>
+            </span>
+            <label for="year">Year</label>
+            <select class="form-control" formControlName="year">
+                <option> </option>
+                <option *ngFor="let year of years">{{ year }}</option>
+            </select>
+            <span *ngIf="!addForm.get('year').valid && addForm.get('year').touched" class="form-text">
+
+                <span *ngIf="addForm.get('yearsAdd').errors['required']" class="form-text">Year
+                    is required</span></span>
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" formControlName="amount">
+            <span *ngIf="!addForm.get('amount').valid && addForm.get('amount').touched" class="form-text text-muted">
+                <span *ngIf="addForm.get('amount').errors['required']" class="form-text">Amount is
+                    required</span>
+                <span *ngIf="addForm.get('amount').errors['min'] || addForm.get('amount').errors['max']"
+                    class="form-text">Must enter amount between 1,000,000 to 1,000,000,000</span>
+            </span>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning btn-sm" (click)="isAddingOpen = !isAddingOpen">Back</button>
+            <button type="submit" [disabled]='!addForm.valid' class="btn btn-primary btn-sm">Add</button>
+        </div>
+    </form>
+</div>
+
+<div class="form-wraper" *ngIf='isAddingExpenseOpen'>
+    <div style="padding: 3em">
+        <h2>NEW EXPENSE</h2>
+        <img style="text-align: center;margin: 3.7em;" src="https://img.icons8.com/color/100/000000/add.png">
+    </div>
+    <form [formGroup]='addExpenseForm' (ngSubmit)='onAddExpenseItem()'>
+        <div class="form-group">
+            <label for="office">Office</label>
+            <select class="form-control" formControlName="office">
+                <option> </option>
+                <option *ngFor="let office of offices">{{ office }}</option>
+            </select>
+            <span *ngIf="!addExpenseForm.get('office').valid && addExpenseForm.get('office').touched" class="form-text">
+                <span *ngIf="addExpenseForm.get('office').errors['required']" class="form-text">Office
+                    is required</span></span>
+            <label for="year">Year</label>
+            <select class="form-control" formControlName="year">
+                <option> </option>
+                <option *ngFor="let year of years">{{ year }}</option>
+            </select>
+            <span *ngIf="!addExpenseForm.get('year').valid && addExpenseForm.get('year').touched" class="form-text">
+                <span *ngIf="addExpenseForm.get('year').errors['required']" class="form-text">Year
+                    is required</span></span>
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" formControlName="amount">
+            <span *ngIf="!addExpenseForm.get('amount').valid && addExpenseForm.get('amount').touched"
+                class="form-text text-muted">
+                <span *ngIf="addExpenseForm.get('amount').errors['required']" class="form-text">Amount is
+                    required</span>
+                <span *ngIf="addExpenseForm.get('amount').errors['min'] || addExpenseForm.get('amount').errors['max']"
+                    class="form-text">Must enter amount between 1,000,000 to 1,000,000,000</span>
+            </span>
+            <label for="title">Title</label>
+            <input type="text" class="form-control" formControlName="title">
+            <span *ngIf="!addExpenseForm.get('title').valid && addExpenseForm.get('title').touched"
+                class="form-text text-muted">
+                <span *ngIf="addExpenseForm.get('title').errors['required']" class="form-text">Title is
+                    required</span>
+            </span>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success btn-sm"
+                (click)="isAddingExpenseOpen = !isAddingExpenseOpen">Back</button>
+            <button type="submit" [disabled]='!addExpenseForm.valid' class="btn btn-warning btn-sm">Add</button>
+        </div>
+    </form>
+</div>
+
+<ul class="list-group mb-1">
+    <li *ngFor='let match of wallService.resultStack' (click)='wallService.selectedResult(match)'
+        class="list-group-item">
+        <a>{{ match.office }} ({{ match.years }})</a>
+    </li>
+</ul>
+
+<div class="items-contain">
+    <div class="items">
+        <div>
+            <div class="cards" *ngFor='let match of wallService.selectedResults'>
+                <div class="icons-container">
+                    <button class="btn">
+                        <img src="https://img.icons8.com/officel/100/000000/edit.png" title="Edit office"
+                            (click)="onEdit()"></button>
+                    <!-- <button class="btn">
+                        <img title="Show expenses" src="https://img.icons8.com/color/100/000000/add.png"
+                            (click)="showExpenses()"></button> -->
+                    <button class="btn">
+                        <img src="https://img.icons8.com/office/100/000000/clear-shopping-cart.png"
+                            title="Clear selected" (click)="wallService.clearSelected()"></button>
+                </div>
+                <h4 class="card-text font-weight-bold"> {{ match.office }}</h4>
+                <p class="card-title">Budget: {{ match.amount | number }}</p>
+                <p class="card-text"> Year: {{ match.years }}</p>
+                <p [style.font-size]="'0.6em'" class="card-text text-right text-muted"> {{ match.userAdded }} added this
+                    office
+                    {{ match.timeAdded }} </p>
+                <edit-office *ngIf='this.wallService.isEditMode'></edit-office>
+                <edit-expense *ngIf='this.wallService.isExpenseMode'></edit-expense>
+            </div>
+        </div>
+    </div>
+</div>

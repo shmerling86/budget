@@ -1,0 +1,27 @@
+.row {
+  justify-content: space-around;
+  padding: 1.5em;
+  .link-wrap {
+    display: flex;
+    font-size: 1.5em;
+    .active {
+      border-bottom: 1px solid #007bff;
+      color: #007bff;
+    }
+    .separator {
+      border-left: 1px solid #007bff;
+      height: 22px;
+      margin: 0.2em 1em;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+      margin: 0 1em;
+      letter-spacing: 2px;
+      cursor: pointer;
+      &:hover {
+        border-bottom: 1px solid #007bff;
+      }
+    }
+  }
+}

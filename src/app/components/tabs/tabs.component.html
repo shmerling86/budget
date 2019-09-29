@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+        <div class="link-wrap" *ngIf='authService.isLoggedIn()'>
+          <a (click)="wallService.filterPages('wall')" [ngClass]="{'active':wallService.page === 'wall'}">Wall</a>
+          <div class="separator"></div>
+          <a (click)="wallService.filterPages('dashboard')"
+            [ngClass]="{'active':wallService.page === 'dashboard'}">Dashboard</a>
+          <div class="separator"></div>
+          <a (click)="wallService.filterPages('profile')" [ngClass]="{'active':wallService.page === 'profile'}">Profile</a>
+        </div>
+  </div>
+
+  <div class="row" *ngIf='authService.isLoggedIn()'>
+    <app-wall *ngIf='wallService.page === "wall"'></app-wall>
+    <app-dashboard *ngIf='wallService.page === "dashboard"'></app-dashboard>
+    <app-users *ngIf='wallService.page === "profile"'></app-users>
+  </div>
+
+  <div class="row"> 
+    <app-auth *ngIf='!authService.isLoggedIn()'></app-auth>
+  </div> 
+</div>

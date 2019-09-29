@@ -1,0 +1,64 @@
+.box {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  box-shadow: 10px 10px 22px -8px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  .box-item {
+    width: 30em;
+    height: 27em;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 1em;
+    margin-top: 0.1em;
+    .box-item-img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 10em;
+      }
+    }
+    .box-sm {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      height: 100%;
+      form {
+        margin: auto 0;
+        input.ng-touched.ng-invalid {
+          border: 1px solid #dc3545;
+        }
+        input.ng-touched.ng-valid {
+          border: 1px solid rgba(0, 128, 0, 0.5);
+        }
+      }
+      .change-mode {
+        display: flex;
+        justify-content: center;
+        color: #6c757d;
+        &:hover {
+          color: #007bff;
+          cursor: pointer;
+        }
+      }
+      span {
+        p {
+          display: flex;
+          justify-content: space-between;
+          img {
+            width: 1.5em;
+          }
+        }
+      }
+    }
+  }
+  .box-item:first-child {
+    border-radius: 10px 0 0 10px;
+  }
+  .box-item:last-child {
+    border-radius: 0 10px 10px 0;
+  }
+}

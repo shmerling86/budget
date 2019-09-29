@@ -1,0 +1,131 @@
+<div class="box">
+    <div class="box-item">
+        <div class="box-item-img" *ngIf='!isloginMode'>
+            <img src="https://img.icons8.com/officel/100/000000/edit-user-male.png">
+        </div>
+        <div class="box-sm" *ngIf='isloginMode'>
+            <span  *ngIf='authService.isConfirmedDetails'>
+                <p class="alert alert-warning">Wrong identification details! <img (click)='authService.clearWarning()' src="https://img.icons8.com/officexs/100/000000/xbox-x.png"></p>
+               
+            </span>
+            <form [formGroup]='authService.loginForm' (ngSubmit)="authService.login(authService.loginForm)">
+                <div class="form-group">
+                    <label for="email">User</label>
+                    <input type="email" class="form-control" formControlName="email" id="email"
+                        placeholder="Enter email">
+                    <span
+                        *ngIf="!authService.loginForm.get('email').valid && authService.loginForm.get('email').touched">
+                        <span *ngIf="authService.loginForm.get('email').errors['required']"
+                            class="form-text text-danger">
+                            Email address is required
+                        </span>
+                        <span *ngIf="authService.loginForm.get('email').errors['email']" class="form-text text-danger">
+                            Email address is invalid
+                        </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" formControlName="password" id="password"
+                        placeholder="Password" autocomplete>
+                    <span
+                        *ngIf="!authService.loginForm.get('password').valid && authService.loginForm.get('password').touched">
+
+                        <span *ngIf="authService.loginForm.get('password').errors['maxlength']"
+                            class="form-text text-danger">
+                            Password is too long
+                        </span>
+                        <span *ngIf="authService.loginForm.get('password').errors['minlength']"
+                            class="form-text text-danger">
+                            Password is too short
+                        </span>
+                        <span *ngIf="authService.loginForm.get('password').errors['required']"
+                            class="form-text text-danger">
+                            Password name is required
+                        </span>
+                    </span>
+                </div>
+                <div class="btn-box">
+                    <button type="submit" [disabled]='!authService.loginForm.valid'
+                        class="btn btn-sm btn-primary btn-block">Login
+                    </button>
+                </div>
+            </form>
+            <div class="change-mode" (click)='changeMode()'>
+                Create new account
+            </div>
+        </div>
+    </div>
+    <div class="box-item">
+        <div class="box-item-img" *ngIf='isloginMode'>
+            <img src="https://img.icons8.com/ultraviolet/240/000000/forgot-password.png">
+        </div>
+        <div class="box-sm" *ngIf='!isloginMode'>
+            <form [formGroup]='authService.signupForm' (ngSubmit)="authService.signup(authService.signupForm)">
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" formControlName="email" class="form-control" id="email"
+                        placeholder="Enter email">
+                    <span
+                        *ngIf="!authService.signupForm.get('email').valid && authService.signupForm.get('email').touched">
+                        <span *ngIf="authService.signupForm.get('email').errors['email']" class="form-text text-danger">
+                            Email address is invalid
+                        </span>
+                        <span *ngIf="authService.signupForm.get('email').errors['required']"
+                            class="form-text text-danger">
+                            Email name is required
+                        </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                        <label for="name">User Name</label>
+                        <input type="text" formControlName="name" class="form-control" id="name" placeholder="Name">
+                        <span
+                            *ngIf="!authService.signupForm.get('name').valid && authService.signupForm.get('name').touched">
+                            <span *ngIf="authService.signupForm.get('name').errors['maxlength']"
+                                class="form-text text-danger">
+                                User Name is too long
+                            </span>
+                            <span *ngIf="authService.signupForm.get('name').errors['minlength']"
+                                class="form-text text-danger">
+                                User Name is too short
+                            </span>
+                            <span *ngIf="authService.signupForm.get('name').errors['required']"
+                                class="form-text text-danger">
+                                User Name is required
+                            </span>
+                        </span>
+                    </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control" id="password"
+                        placeholder="Password" autocomplete>
+                    <span
+                        *ngIf="!authService.signupForm.get('password').valid && authService.signupForm.get('password').touched">
+                        <span *ngIf="authService.signupForm.get('password').errors['maxlength']"
+                            class="form-text text-danger">
+                            Password is too long
+                        </span>
+                        <span *ngIf="authService.signupForm.get('password').errors['minlength']"
+                            class="form-text text-danger">
+                            Password is too short
+                        </span>
+                        <span *ngIf="authService.signupForm.get('password').errors['required']"
+                            class="form-text text-danger">
+                            Password is required
+                        </span>
+                    </span>
+                </div>
+                <div>
+                    <button type="submit" [disabled]='!authService.signupForm.valid'
+                        class="btn btn-sm btn-primary btn-block">Signup
+                    </button>
+                </div>
+            </form>
+            <div class="change-mode" (click)='changeMode()'>
+                Sign in instead
+            </div>
+        </div>
+    </div>
+</div>
