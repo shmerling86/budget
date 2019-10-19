@@ -1,12 +1,10 @@
-// @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
 * {
-  font-family: QuattrocentoSans-Regular;
+  font-family: Poppins, Helvetica, sans-serif;
   font-weight: 300;
 }
 
 body {
-  background-color: rgba(235, 235, 235, 0.7);
+  background-color:rgb(242, 243, 248);
 }
 
 input,
@@ -16,4 +14,8 @@ button {
     outline: none !important;
     box-shadow: none !important;
   }
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

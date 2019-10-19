@@ -1,0 +1,38 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  .box-item-img {
+    margin: 2em 0;
+    text-align: center;
+  }
+  .box-item-form {
+    .alert {
+      img {
+        width: 1em;
+      }
+    }
+    div {
+      .change-mode {
+        display: flex;
+        justify-content: center;
+        color: #6c757d;
+        font-size: 0.9em;
+        &:hover {
+          color: #fff;
+          cursor: pointer;
+        }
+      }
+      form {
+        input.ng-touched.ng-invalid {
+          border: 2px solid #dc3545;
+        }
+        input.ng-touched.ng-valid {
+          border: 2px solid rgba(5, 255, 5, 0.5);
+        }
+        .btn-box {
+          margin: 3em 0;
+        }
+      }
+    }
+  }
+}

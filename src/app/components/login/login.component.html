@@ -1,0 +1,69 @@
+<div *ngIf="authService.isConfirmed; else loginSpiner">
+    <ngx-spinner bdColor="none" size="medium" color="#fff" [fullScreen]="false" type="ball-climbing-dot">
+        <h6>Loading..</h6>
+    </ngx-spinner>
+</div>
+<ng-template #loginSpiner>
+    <div class="box">
+        <div class="box-item-img">
+            <img src="https://img.icons8.com/doodle/48/000000/lock--v3.png">
+        </div>
+        <div class="box-item-form">
+            <div>
+                <span *ngIf='authService.isWrongDetailsAlertOn'>
+                    <p class="alert alert-warning">Wrong identification details! <img
+                            (click)='authService.clearWarning()'
+                            src="https://img.icons8.com/officexs/100/000000/xbox-x.png">
+                    </p>
+                </span>
+                <form [formGroup]='authService.loginForm' (ngSubmit)="authService.login(authService.loginForm)">
+                    <div class="form-group">
+                        <label for="email">User</label>
+                        <input type="email" class="form-control" formControlName="email" id="email"
+                            placeholder="Enter email">
+                        <span
+                            *ngIf="!authService.loginForm.get('email').valid && authService.loginForm.get('email').touched">
+                            <span *ngIf="authService.loginForm.get('email').errors['required']"
+                                class="form-text text-danger">
+                                Email address is required
+                            </span>
+                            <span *ngIf="authService.loginForm.get('email').errors['email']"
+                                class="form-text text-danger">
+                                Email address is invalid
+                            </span>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" formControlName="password" id="password"
+                            placeholder="Password" autocomplete>
+                        <span
+                            *ngIf="!authService.loginForm.get('password').valid && authService.loginForm.get('password').touched">
+
+                            <span *ngIf="authService.loginForm.get('password').errors['maxlength']"
+                                class="form-text text-danger">
+                                Password is too long
+                            </span>
+                            <span *ngIf="authService.loginForm.get('password').errors['minlength']"
+                                class="form-text text-danger">
+                                Password is too short
+                            </span>
+                            <span *ngIf="authService.loginForm.get('password').errors['required']"
+                                class="form-text text-danger">
+                                Password name is required
+                            </span>
+                        </span>
+                    </div>
+                    <div class="btn-box">
+                        <button type="submit" [disabled]='!authService.loginForm.valid && authService.loginForm.touched'
+                            class="btn btn-sm btn-primary btn-block">Login
+                        </button>
+                    </div>
+                </form>
+                <div class="change-mode" (click)='authService.changeMode()'>
+                    Create new account
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

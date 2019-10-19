@@ -1,0 +1,132 @@
+app-login,
+app-signup {
+  margin: auto;
+}
+
+.sidenav {
+  width: 14%;
+  height: 100%;
+  background-color: #1e1e2d;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding: 2em 0.3em;
+  ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    color: #a2a3b7;
+    .chapter-line-main:first-child {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .chapter-line-main {
+      padding: 1em;
+      a {
+        text-decoration: none;
+        .chapter-wraper {
+          display: flex;
+          align-items: center;
+          img {
+            width: 1.3em;
+            margin-right: 1em;
+            opacity: 1;
+          }
+          .chapter {
+            color: #fff;
+            font-size: 0.9em;
+          }
+        }
+      }
+    }
+    .chapter-line {
+      padding: 1em 0.5em;
+      .chapter-wraper {
+        .chapter {
+          flex: 1;
+        }
+      }
+      a {
+        text-decoration: none;
+        .chapter-wraper {
+          display: flex;
+          align-items: center;
+          img {
+            width: 1.3em;
+            margin-right: 1em;
+            opacity: 0.5;
+          }
+          .chapter {
+            color: #a2a3b7;
+            font-size: 0.9em;
+          }
+        }
+      }
+      ul.sub {
+        list-style-type: inherit;
+        padding: 1em;
+        cursor: pointer;
+        .sub-activity {
+          list-style-type: none;
+          span {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            a {
+              display: flex;
+              flex: 0 1 50%;
+              flex-direction: column;
+              align-self: flex-end;
+              border: none;
+              border-radius: 0;
+              color: #fff;
+            }
+          }
+        }
+        li {
+          padding: 1em 0;
+          .sub-dashboard {
+            color: #a2a3b7;
+            font-size: 0.9em;
+          }
+
+          &:hover {
+            .sub-dashboard {
+              background-color: #1b1b28;
+              color: #fff;
+            }
+          }
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+      .active {
+        .chapter-wraper {
+          img {
+            opacity: 1;
+          }
+          .chapter {
+            color: #fff;
+            flex: 1;
+          }
+        }
+      }
+      &:hover {
+        background-color: #1b1b28;
+        a {
+          .chapter-wraper {
+            img {
+              opacity: 1;
+            }
+            .chapter {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

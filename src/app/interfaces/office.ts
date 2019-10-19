@@ -1,8 +1,8 @@
 export interface Office {
     office: string,
     amount: number,
-    years: number,
-    timeAdded: string,
+    year: number,
+    timeStamp: string,
     userAdded: string,
     id: number
 }

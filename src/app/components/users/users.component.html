@@ -1,0 +1,61 @@
+<div class="main">
+    <div class="users-box" *ngIf='authService.activeUser'>
+        <div class="user-details-container">
+            <span class="text-muted">
+                <span [style.font-size.em]='0.8'>Logged in:</span>
+                <span class="font-weight-bold">{{ authService.activeUser.name }}</span>
+            </span>
+            <span (click)='authService.logout()' title="Logout">
+                <img [style.width.em]="2" src="https://img.icons8.com/officel/100/000000/exit.png">
+            </span>
+        </div>
+        <div class="users-box-item">
+            <form [formGroup]='updateForm' (ngSubmit)="updateProfile(updateForm)">
+                <label for="name"></label>
+                <input type="text" formControlName="name" class="form-control" id="name" placeholder="Name">
+                <span *ngIf="!updateForm.get('name').valid">
+                    <span *ngIf="updateForm.get('name').errors['maxlength']" class="form-text text-danger">
+                        User Name is too long
+                    </span>
+                    <span *ngIf="updateForm.get('name').errors['minlength']" class="form-text text-danger">
+                        User Name is too short
+                    </span>
+                    <span *ngIf="updateForm.get('name').errors['required']" class="form-text text-danger">
+                        User Name is required
+                    </span>
+                </span>
+                <label for="email"></label>
+                <input type="text" formControlName="email" class="form-control" id="email" placeholder="email">
+                <span *ngIf="!updateForm.get('email').valid">
+                    <span *ngIf="updateForm.get('email').errors['email']" class="form-text text-danger">
+                        Email address is invalid
+                    </span>
+                    <span *ngIf="updateForm.get('email').errors['required']" class="form-text text-danger">
+                        Email name is required
+                    </span>
+                </span>
+                <label for="password"></label>
+                <input type="password" formControlName="password" class="form-control" id="password"
+                    placeholder="Password" autocomplete>
+                <span *ngIf="!updateForm.get('password').valid">
+                    <span *ngIf="updateForm.get('password').errors['maxlength']" class="form-text text-danger">
+                        Password is too long
+                    </span>
+                    <span *ngIf="updateForm.get('password').errors['minlength']" class="form-text text-danger">
+                        Password is too short
+                    </span>
+                    <span *ngIf="updateForm.get('password').errors['required']" class="form-text text-danger">
+                        Password is required
+                    </span>
+                </span>
+                <div class="btn-box">
+                    <button type="submit" class="btn btn-sm btn-outline-primary" [disabled]='!updateForm.valid'>Update
+                        Profile</button>
+
+                </div>
+            </form>
+        </div>
+        <span [style.font-size.em]="0.8" class="text-muted text-center">Sign up in
+            {{ authService.activeUser.timeStamp }}</span>
+    </div>
+</div>

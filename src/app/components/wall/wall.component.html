@@ -1,0 +1,46 @@
+<div class="main">
+    <div class="items-contain">
+        <div class="items">
+            <div>
+                <div class="cards" *ngFor='let match of wallService.selectedResults'>
+                    <div class="icons-container">
+                        <button class="btn" *ngIf="wallService.dbKind != 'expenses'">
+                            <img src="https://img.icons8.com/officel/100/000000/edit.png" title="Edit"
+                                (click)="onEdit()"></button>
+                        <button class="btn">
+                            <img src="https://img.icons8.com/office/100/000000/clear-shopping-cart.png"
+                                title="Clear selected" (click)="wallService.clearSelected()"></button>
+                        <p class="card-text text-muted added-details">
+                            Added {{ match.timeStamp }} by {{ match.userAdded }}</p>
+                    </div>
+                    <div class="str-chart" *ngIf='!wallService.doughnutChartLabels; else expenseLoader'>
+                        <ngx-spinner bdColor="none" size="medium" color="#000" [fullScreen]="false" type="ball-atom">
+                        </ngx-spinner>
+                    </div>
+                    <ng-template #expenseLoader>
+                        <div class="str-chart">
+                            <canvas baseChart [data]="wallService.doughnutChartData" [colors]="wallService.chartColors"
+                                [labels]="wallService.doughnutChartLabels" [chartType]="wallService.doughnutChartType"
+                                [options]="wallService.doughnutChartOptions">
+                            </canvas>
+                        </div>
+                    </ng-template>
+                    <div>
+                        <h4 *ngIf="wallService.dbKind == 'expenses'" class="card-text font-weight-bold">
+                            {{ match.title }}
+                        </h4>
+                        <h4 *ngIf="wallService.dbKind != 'expenses'" class="card-text font-weight-bold">
+                            {{ match.office }}
+                        </h4>
+                        <h6 class="card-title">${{ match.amount | number }}</h6>
+                        <h6 class="card-text ">
+                            <span *ngIf="wallService.dbKind == 'expenses'">{{ match.office }}</span>
+                            <span *ngIf="wallService.dbKind != 'expenses'">Year:</span> {{ match.year }}</h6>
+                    </div>
+                </div>
+                <edit-office *ngIf='wallService.isEditMode'></edit-office>
+            </div>
+        </div>
+    </div>
+
+</div>

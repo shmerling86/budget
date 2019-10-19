@@ -1,0 +1,42 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 86%;
+  right: 0;
+  position: absolute;
+  padding: 1em;
+
+  .users-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
+    border-radius: 10px;
+    width: 50%;
+    margin: 6em auto 0 auto;
+
+    .users-box-item {
+      display: flex;
+      flex-direction: column;
+      max-height: 562px;
+      padding: 4em;
+      width: 50%;
+      span {
+        font-size: 1.1em;
+      }
+      .date-down {
+        margin-bottom: 12em;
+      }
+    }
+    .users-box-air {
+      padding: 4em;
+      .numOfUserCont {
+        font-weight: bold;
+        color: #dc3545;
+        font-size: 1.1em;
+      }
+    }
+  }
+}

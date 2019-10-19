@@ -1,0 +1,47 @@
+<div class="main">
+    <div class="form-wraper">
+        <h4>New Expense</h4>
+        <form [formGroup]='addExpenseForm' (ngSubmit)='onAddExpenseItem()'>
+            <div class="form-group">
+                <label for="office">Ministry</label>
+                <select class="form-control" formControlName="office">
+                    <option> </option>
+                    <option *ngFor="let office of offices">{{ office }}</option>
+                </select>
+                <span *ngIf="!addExpenseForm.get('office').valid && addExpenseForm.get('office').touched"
+                    class="form-text">
+                    <span *ngIf="addExpenseForm.get('office').errors['required']" class="form-text">Ministry
+                        is required</span></span>
+                <label for="year">Year</label>
+                <select class="form-control" formControlName="year">
+                    <option> </option>
+                    <option *ngFor="let year of wallService.years">{{ year }}</option>
+                </select>
+                <span *ngIf="!addExpenseForm.get('year').valid && addExpenseForm.get('year').touched" class="form-text">
+                    <span *ngIf="addExpenseForm.get('year').errors['required']" class="form-text">Year
+                        is required</span></span>
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" formControlName="amount">
+                <span *ngIf="!addExpenseForm.get('amount').valid && addExpenseForm.get('amount').touched"
+                    class="form-text text-muted">
+                    <span *ngIf="addExpenseForm.get('amount').errors['required']" class="form-text">Amount is
+                        required</span>
+                    <span
+                        *ngIf="addExpenseForm.get('amount').errors['min'] || addExpenseForm.get('amount').errors['max']"
+                        class="form-text">Must enter amount between 1,000,000 to 1,000,000,000</span>
+                </span>
+                <label for="title">Title</label>
+                <input type="text" class="form-control" formControlName="title">
+                <span *ngIf="!addExpenseForm.get('title').valid && addExpenseForm.get('title').touched"
+                    class="form-text text-muted">
+                    <span *ngIf="addExpenseForm.get('title').errors['required']" class="form-text">Title is
+                        required</span>
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" [disabled]='!addExpenseForm.valid' class="btn">
+                    <img src="https://img.icons8.com/color/48/000000/checked--v2.png"> </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="sidenav">
+    <ul>
+        <li class="chapter-line-main mb-3">
+            <a routerLink="dashboard-offices" class="active" (click)='onClickLogoOptions()'>
+                <span class="chapter-wraper">
+                    <span><img src="https://img.icons8.com/officel/50/000000/organization.png"></span>
+                    <span class="chapter font-weight-bold">B U D G E T</span>
+                </span> </a>
+        </li>
+        <div class="row" *ngIf='!authService.activeUser'>
+            <app-login *ngIf='authService.isloginMode'></app-login>
+            <app-signup *ngIf='!authService.isloginMode'></app-signup>
+        </div>
+    </ul>
+
+    <ul *ngIf='authService.activeUser'>
+        <li class="chapter-line">
+            <a routerLink="dashboard-offices" routerLinkActive="active" (click)='onClickDashOptions()'>
+                <span class="chapter-wraper">
+                    <span><img src="https://img.icons8.com/ultraviolet/40/000000/bar-chart.png"></span>
+                    <span class="chapter">Dashboard</span>
+                    <img src="https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png">
+                </span>
+            </a>
+            <div *ngIf='isDashMenuOpen' [@sub]="isDashMenuOpen">
+                <ul class="sub">
+                    <li routerLink="dashboard-offices" routerLinkActive="active">
+                        <span class="sub-dashboard">
+                            Ministries
+                        </span>
+                    </li>
+                    <li routerLink="dashboard-expenses" routerLinkActive="active">
+                        <span class="sub-dashboard">
+                            Expenses
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="chapter-line">
+            <a routerLink="search" routerLinkActive="active" (click)='onClickSearchOptions()'>
+                <span class="chapter-wraper">
+                    <span><img src="https://img.icons8.com/ultraviolet/40/000000/search.png"></span>
+                    <span class="chapter">Search & Edit</span>
+                    <img src="https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png">
+                </span>
+            </a>
+            <app-search *ngIf='isSearchMenuOpen'></app-search>
+
+        </li>
+        <li class="chapter-line">
+            <a routerLink="new-office" routerLinkActive="active" (click)='onClickAddOptions()'>
+                <span class="chapter-wraper">
+                    <span><img src="https://img.icons8.com/ultraviolet/40/000000/speed.png"></span>
+                    <span class="chapter">Add</span>
+                    <img src="https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png">
+                </span>
+            </a>
+            <div *ngIf='isAddMenuOpen' [@sub]="isAddMenuOpen">
+                <ul class="sub">
+                    <li routerLink="new-office" routerLinkActive="active">
+                        <span class="sub-dashboard">
+                            New ministry
+                        </span>
+                    </li>
+                    <li routerLink="new-expense" routerLinkActive="active">
+                        <span class="sub-dashboard">
+                            New expense
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="chapter-line">
+            <a routerLink="activity" routerLinkActive="active" (click)='onClickActivityOptions()'>
+                <span class="chapter-wraper">
+                    <span><img src="https://img.icons8.com/ultraviolet/40/000000/activity-feed.png"></span>
+                    <span class="chapter">Activity</span>
+                    <img src="https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png">
+
+                </span>
+            </a>
+            <div *ngIf='isActivityMenuOpen' [@sub]="isAddMenuOpen">
+                <ul class="sub">
+                    <li class="sub-activity">
+                        <span>
+                            <a class="btn btn-success" (click)="wallService.filter = 'all'">All</a>
+                            <a class="btn btn-warning" (click)="wallService.filter = 'user'">User</a>
+                            <a class="btn btn-danger" (click)="wallService.filter = 'office'">Ministry</a>
+                            <a class="btn btn-primary" (click)="wallService.filter = 'expense'">Expense </a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="chapter-line">
+            <a routerLink="contribution" routerLinkActive="active" (click)='onClickLogoOptions()'>
+                <span class="chapter-wraper">
+                    <span><img src="https://img.icons8.com/ultraviolet/40/000000/donate.png"></span>
+                    <span class="chapter">Contribution</span>
+                </span>
+            </a>
+        </li>
+        <li class="chapter-line">
+            <a routerLink="profile" routerLinkActive="active" (click)='onClickLogoOptions()'>
+                <span class="chapter-wraper">
+                    <span><img src="https://img.icons8.com/ultraviolet/40/000000/user.png"></span>
+                    <span class="chapter">Profile</span>
+                </span>
+            </a>
+
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,44 @@
+<div class="main">
+    <div class="form-wraper">
+        <h4>New Ministry</h4>
+        <form [formGroup]='addForm' (ngSubmit)='onAddItem()'>
+            <div class="form-group">
+                <label for="office">Ministry</label>
+                <input type="text" class="form-control" formControlName='office'>
+                <span *ngIf="!addForm.get('office').valid && addForm.get('office').touched">
+                    <span *ngIf="addForm.get('office').errors['maxlength']" class="form-text">
+                            Ministry Name is too long
+                    </span>
+                    <span *ngIf="addForm.get('office').errors['minlength']" class="form-text">
+                            Ministry Name is too short
+                    </span>
+                    <span *ngIf="addForm.get('office').errors['required']" class="form-text">
+                            Ministry Name is required
+                    </span>
+                </span>
+                <label for="year">Year</label>
+                <select class="form-control" formControlName="year">
+                    <option> </option>
+                    <option *ngFor="let year of wallService.years">{{ year }}</option>
+                </select>
+                <span *ngIf="!addForm.get('year').valid && addForm.get('year').touched" class="form-text">
+
+                    <span *ngIf="addForm.get('year').errors['required']" class="form-text">Year
+                        is required</span></span>
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" formControlName="amount">
+                <span *ngIf="!addForm.get('amount').valid && addForm.get('amount').touched"
+                    class="form-text text-muted">
+                    <span *ngIf="addForm.get('amount').errors['required']" class="form-text">Amount is
+                        required</span>
+                    <span *ngIf="addForm.get('amount').errors['min'] || addForm.get('amount').errors['max']"
+                        class="form-text">Must enter amount between 1,000,000 to 1,000,000,000</span>
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" [disabled]='!addForm.valid' class="btn"><img
+                        src="https://img.icons8.com/color/48/000000/checked--v2.png"></button>
+            </div>
+        </form>
+    </div>
+</div>

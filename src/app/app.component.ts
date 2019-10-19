@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,14 +8,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'galaxy';
-  constructor(private loader: NgxSpinnerService) {}
+  title = 'budget';
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    // this.loader.show();
-    // setTimeout(() => {
-    //   this.loader.hide();
-    // }, 500);
-    
+    this.router.navigate([''])
   }
 }

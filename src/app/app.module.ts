@@ -5,49 +5,43 @@ import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideModule } from 'ng-click-outside';
-
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppComponent } from './app.component';
-import { TabsComponent } from './components/tabs/tabs.component';
-import { AuthComponent } from './components/tabs/auth/auth.component';
-import { DashboardComponent } from './components/tabs/dashboard/dashboard.component';
-import { WallComponent } from './components/tabs/wall/wall.component';
-import { EditOfficeComponent } from './components/tabs/wall/edit-office/edit-office.component'
-import { EditExpenseComponent } from './components/tabs/wall/edit-expense/edit-expense.component';
-import { DeleteOfficeComponent } from './components/tabs/wall/edit-office/delete-office/delete-office.component';
-
-import { FusionChartsModule } from "angular-fusioncharts";
-
-import * as FusionCharts from "fusioncharts";
-import * as FusionMaps from "fusioncharts/fusioncharts.maps";
-import * as World from 'fusioncharts/maps/fusioncharts.world';
-
-import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
-import { UsersComponent } from './components/tabs/users/users.component';
-
-FusionChartsModule.fcRoot(
-  FusionCharts,
-  FusionMaps,
-  World,
-  FusionTheme
-);
+import { DashboardComponent } from './components/dashboard-offices/dashboard-offices.component';
+import { WallComponent } from './components/wall/wall.component';
+import { EditOfficeComponent } from './components/wall/edit-office/edit-office.component'
+import { DeleteOfficeComponent } from './components/wall/edit-office/delete-office/delete-office.component';
+import { UsersComponent } from './components/users/users.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { OfficeComponent } from './components/office/office.component';
+import { ExpenseComponent } from './components/expense/expense.component';
+import { ActivityComponent } from './components/activity/activity.component';
+import { ContributionComponent } from './components/contribution/contribution.component';
+import { SearchComponent } from './components/search/search.component';
+import { DashboardExpensesComponent } from './components/dashboard-expenses/dashboard-expenses.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TabsComponent,
-    AuthComponent,
     DashboardComponent,
     WallComponent,
     EditOfficeComponent,
     DeleteOfficeComponent,
     UsersComponent,
-    EditExpenseComponent
-
+    LoginComponent,
+    SignupComponent,
+    NavbarComponent,
+    OfficeComponent,
+    ExpenseComponent,
+    ActivityComponent,
+    ContributionComponent,
+    SearchComponent,
+    DashboardExpensesComponent
   ],
   imports: [
     BrowserModule,
@@ -58,8 +52,8 @@ FusionChartsModule.fcRoot(
     ReactiveFormsModule,
     NgxSpinnerModule,
     FontAwesomeModule,
-    FusionChartsModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    BrowserAnimationsModule
 
   ],
   providers: [],
