@@ -17,9 +17,9 @@
   padding: 1rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-wrap: wrap;
-  .btn-clear-selcted{
+  .btn-clear-selcted {
     @media (max-width: 415px) {
       display: none;
     }

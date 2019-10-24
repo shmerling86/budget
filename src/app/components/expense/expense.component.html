@@ -1,12 +1,16 @@
-<div class="main">
-    <div class="form-wraper">
+<div class="main" >
+    <div class="form-wraper" *ngIf='listOfAllOffices'>
         <h4>New Expense</h4>
         <form [formGroup]='addExpenseForm' (ngSubmit)='onAddExpenseItem()'>
             <div class="form-group">
+                <div *ngIf='wallService.isFinishAdd' class="alert alert-success alert-dismissible fade show">
+                    <strong>Successfully Added!</strong>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
                 <label for="office">Ministry</label>
                 <select class="form-control" formControlName="office">
                     <option> </option>
-                    <option *ngFor="let office of offices">{{ office }}</option>
+                    <option *ngFor="let office of listOfAllOffices">{{ office }}</option>
                 </select>
                 <span *ngIf="!addExpenseForm.get('office').valid && addExpenseForm.get('office').touched"
                     class="form-text">

@@ -35,9 +35,11 @@ export class DashboardComponent implements OnInit {
           const label = ctx.chart.data.labels[ctx.dataIndex];
           return label;
         },
-      },
+        color: '#fff'
+      }
     }
   }
+
   chartColors = this.wallService.chartColors;
   pieChartType = 'pie';
   pieChartLegend = true;
@@ -99,7 +101,6 @@ export class DashboardComponent implements OnInit {
         this.lastTotalAmount = this.lastTotalAmounts.reduce((a, b) => a + b, 0);
       }
     }
-    
   }
 
   getPercentageOfGrowth() {

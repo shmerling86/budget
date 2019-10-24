@@ -5,6 +5,7 @@
   right: 0;
   position: absolute;
   padding: 1em;
+    height: 650px;
 }
 hr {
   padding: 0;
@@ -25,14 +26,15 @@ label {
 .items-contain {
   display: flex;
   justify-content: center;
-  margin-top: 7em;
+  margin: 6em;
   .items {
-    width: 60%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    div {
+    div:not(.alert-dismissible) {
       width: 100%;
+      padding: 3em;
       .cards {
         display: flex;
         flex-flow: row-reverse nowrap;

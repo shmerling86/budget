@@ -5,19 +5,19 @@
                 <span class="chapter-wraper">
                     <span><img src="https://img.icons8.com/officel/50/000000/organization.png"></span>
                     <span class="chapter font-weight-bold">B U D G E T</span>
-                </span> </a>
+                </span>
+            </a>
         </li>
         <div class="row" *ngIf='!authService.activeUser'>
             <app-login *ngIf='authService.isloginMode'></app-login>
             <app-signup *ngIf='!authService.isloginMode'></app-signup>
         </div>
     </ul>
-
     <ul *ngIf='authService.activeUser'>
         <li class="chapter-line">
             <a routerLink="dashboard-offices" routerLinkActive="active" (click)='onClickDashOptions()'>
                 <span class="chapter-wraper">
-                    <span><img src="https://img.icons8.com/ultraviolet/40/000000/bar-chart.png"></span>
+                    <span><img src="https://img.icons8.com/officel/16/000000/new-presentation.png"></span>
                     <span class="chapter">Dashboard</span>
                     <img src="https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png">
                 </span>
@@ -46,7 +46,6 @@
                 </span>
             </a>
             <app-search *ngIf='isSearchMenuOpen'></app-search>
-
         </li>
         <li class="chapter-line">
             <a routerLink="new-office" routerLinkActive="active" (click)='onClickAddOptions()'>
@@ -77,7 +76,6 @@
                     <span><img src="https://img.icons8.com/ultraviolet/40/000000/activity-feed.png"></span>
                     <span class="chapter">Activity</span>
                     <img src="https://www.freeiconspng.com/uploads/white-down-arrow-png-2.png">
-
                 </span>
             </a>
             <div *ngIf='isActivityMenuOpen' [@sub]="isAddMenuOpen">
@@ -108,7 +106,6 @@
                     <span class="chapter">Profile</span>
                 </span>
             </a>
-
         </li>
     </ul>
 </div>

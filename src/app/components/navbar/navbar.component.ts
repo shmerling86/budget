@@ -42,7 +42,6 @@ export class NavbarComponent implements OnInit {
     this.isAddMenuOpen = false;
     this.isSearchMenuOpen = false;
     this.isActivityMenuOpen = false;
-
   }
 
   onClickSearchOptions() {
@@ -50,7 +49,6 @@ export class NavbarComponent implements OnInit {
     this.isAddMenuOpen = false;
     this.isDashMenuOpen = false;
     this.isActivityMenuOpen = false;
-
   }
 
   onClickAddOptions() {
@@ -58,7 +56,6 @@ export class NavbarComponent implements OnInit {
     this.isSearchMenuOpen = false;
     this.isDashMenuOpen = false;
     this.isActivityMenuOpen = false;
-
   }
 
   onClickActivityOptions() {
@@ -66,7 +63,6 @@ export class NavbarComponent implements OnInit {
     this.isSearchMenuOpen = false;
     this.isDashMenuOpen = false;
     this.isAddMenuOpen = false;
-
   }
 
 

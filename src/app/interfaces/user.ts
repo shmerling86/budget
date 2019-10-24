@@ -1,8 +1,8 @@
 export interface User {
     email: string,
     password: string
-    status: string,
     name: string,
-    since: string
+    timeStamp: string,
+    type: string,
     id: number,
 }

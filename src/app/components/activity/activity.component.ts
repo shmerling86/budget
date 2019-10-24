@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import * as moment from 'moment';
 import { WallService } from 'src/app/services/wall.service';
 
 @Component({
@@ -10,23 +8,16 @@ import { WallService } from 'src/app/services/wall.service';
 })
 export class ActivityComponent implements OnInit {
 
-  constructor(public wallService: WallService, private http: HttpClient) { }
+  isDetailsOn: boolean = false;
+
+  constructor(public wallService: WallService) { }
 
   ngOnInit() {
     this.wallService.getAllTimeStamps();
   }
 
-  isChangeLimitAccessToggle(e) {
-    if (e === true) {
-      this.wallService.isExpanseDetailsOn = true;
-    } else {
-      this.wallService.isExpanseDetailsOn = false;
-
-    }
+  toggleDetails() {
+    this.isDetailsOn = !this.isDetailsOn;
   }
-
-  
-
-  
 
 }

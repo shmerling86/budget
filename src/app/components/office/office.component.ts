@@ -21,6 +21,8 @@ export class OfficeComponent implements OnInit {
       'year': new FormControl(null, [Validators.required]),
       'amount': new FormControl(null, [Validators.required, Validators.min(1000000), Validators.max(1000000000)])
     });
+
+    this.wallService.isFinishAddOffice = false;
   }
 
   onAddItem() {    
@@ -34,4 +36,5 @@ export class OfficeComponent implements OnInit {
     this.wallService.addOffice(newOffice)
     this.addForm.reset();
   }
+  
 }

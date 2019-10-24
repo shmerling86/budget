@@ -1,0 +1,71 @@
+<form [formGroup]='editExpenseForm' (ngSubmit)="onUpdate(editExpenseForm)">
+    <div class="form-group">
+        <label for="office">Ministry</label>
+        <select class="form-control" formControlName="office">
+            <option> </option>
+            <option *ngFor="let office of listOfAllOffices" [ngValue]="office.office">{{ office.office }}</option>
+        </select>
+        <span *ngIf="!editExpenseForm.get('office').valid && editExpenseForm.get('office').touched">
+            <span *ngIf="editExpenseForm.get('office').errors['maxlength']" class="form-text">
+                Office Name is too long
+            </span>
+            <span *ngIf="editExpenseForm.get('office').errors['minlength']" class="form-text">
+                Office Name is too short
+            </span>
+            <span *ngIf="editExpenseForm.get('office').errors['required']" class="form-text">
+                Office Name is required
+            </span>
+        </span>
+        <label for="year"></label>
+        <select class="form-control" formControlName="year">
+            <option> </option>
+            <option *ngFor="let year of years" [ngValue]="year">{{ year }}</option>
+        </select>
+        <span *ngIf="!editExpenseForm.get('year').valid && editExpenseForm.get('year').touched" class="form-text">
+
+            <span *ngIf="editExpenseForm.get('year').errors['required']" class="form-text">Year
+                is required</span></span>
+        <label for="title"></label>
+        <input type="text" class="form-control" formControlName="title">
+        <span *ngIf="!editExpenseForm.get('title').valid && editExpenseForm.get('title').touched">
+            <span *ngIf="editExpenseForm.get('title').errors['maxlength']" class="form-text">
+                Title Name is too long
+            </span>
+            <span *ngIf="editExpenseForm.get('title').errors['minlength']" class="form-text">
+                Title Name is too short
+            </span>
+            <span *ngIf="editExpenseForm.get('title').errors['required']" class="form-text">
+                Title Name is required
+            </span>
+        </span>
+        <label for="amount"></label>
+        <input type="number" class="form-control" formControlName="amount">
+        <span *ngIf="!editExpenseForm.get('amount').valid && editExpenseForm.get('amount').touched" class="form-text">
+            <span *ngIf="editExpenseForm.get('amount').errors['required']" class="form-text">Amount
+                is required</span>
+            <span *ngIf="editExpenseForm.get('amount').errors['min'] || editExpenseForm.get('amount').errors['max']"
+                class="form-text">
+                Must enter amount between 1,000,000 to 10,000,000,000</span>
+        </span>
+
+    </div>
+
+    <div class="modal-footer">
+        <div class="icons">
+            <button type="submit" class="btn btn-sm" [disabled]="!editExpenseForm.valid && !editExpenseForm.touched || 
+                !editExpenseForm.get('title').valid && editExpenseForm.get('title').touched ||
+                !editExpenseForm.get('amount').valid && editExpenseForm.get('amount').touched ||
+                 !editExpenseForm.get('year').valid && editExpenseForm.get('year').touched  || 
+                 !editExpenseForm.get('office').valid && editExpenseForm.get('office').touched">
+                <img src="https://img.icons8.com/color/48/000000/checked--v2.png">
+            </button>
+            <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#deleteBtn">
+                <img src="https://img.icons8.com/plasticine/100/000000/filled-trash.png">
+            </button>
+            <button type="button" (click)='wallService.isEditMode = !wallService.isEditMode'
+                class="btn btn-outline-secondary btn-sm " data-dismiss="modal">Cancel
+            </button>
+        </div>
+    </div>
+    <delete-office></delete-office>
+</form>

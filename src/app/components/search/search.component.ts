@@ -10,19 +10,20 @@ import { WallService } from 'src/app/services/wall.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(public authService: AuthService, public wallService: WallService, public router: Router) { }
+  constructor(
+    public authService: AuthService,
+    public wallService: WallService,
+    public router: Router) { }
 
   isAddingOpen: boolean = false;
   isSearchKeyOptionsOpen: boolean = false;
   isAddOptionsOpen: boolean = false;
   text: string = this.wallService.text;
 
-
-
   ngOnInit() {
   }
 
-  onClickSetting(){
+  onClickSetting() {
     this.wallService.resultStack = [];
     this.wallService.text = '';
     this.isSearchKeyOptionsOpen = !this.isSearchKeyOptionsOpen;
@@ -31,7 +32,6 @@ export class SearchComponent implements OnInit {
   onClickedOutside() {
     this.isSearchKeyOptionsOpen = false;
   }
-
 
   changeSearchKey(searchKey) {
     this.text = "";

@@ -13,8 +13,8 @@ export class DeleteOfficeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRemoveItem() {
-    this.wallService.removeItem(this.wallService.selectedResults[0].id);
+  onRemoveItem() {    
+    this.wallService.removeItem(this.wallService.selectedResults[0].id, this.wallService.selectedResults[0].type);
   }
 
 }

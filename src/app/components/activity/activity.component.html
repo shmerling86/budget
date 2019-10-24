@@ -4,14 +4,14 @@
         </ngx-spinner>
     </div>
     <ng-template #isFinishLoadAct>
-        <div class="container">
+        <div class="contain">
             <div class="timeline">
                 <ul>
                     <div class="sub-timeline">
                         <span class="sub-dashboard"
-                            (click)='wallService.isExpanseDetailsOn = !wallService.isExpanseDetailsOn'
-                            [style.background]="wallService.isExpanseDetailsOn ? '#a2a3b7': 'green'">
-                            Show {{ wallService.isExpanseDetailsOn ? 'less': ' more' }} details
+                            (click)='toggleDetails()'
+                            [style.background]="isDetailsOn ? '#a2a3b7': 'green'">
+                            Show {{ isDetailsOn ? 'less': ' more' }} details
                         </span>
                     </div>
                     <li *ngFor='let activity of wallService.filterAllActivities()'>
@@ -23,16 +23,16 @@
 
                             <h4 *ngIf='activity.email'>New user sign up.</h4>
                             <h6 class="font-weight-bold"
-                                *ngIf='wallService.isExpanseDetailsOn === true && activity.email'>
+                                *ngIf='isDetailsOn === true && activity.email'>
                                 {{ activity.name }} sign up.</h6>
                             <h4 *ngIf='activity.title'>New expense was added.</h4>
                             <h6 class="font-weight-bold"
-                                *ngIf='wallService.isExpanseDetailsOn === true && activity.title && !activity.email'>The
+                                *ngIf='isDetailsOn === true && activity.title && !activity.email'>The
                                 {{ activity.title }} expense for the ministry of {{ activity.office }}
                                 ({{ activity.year }}) was added by {{ activity.userAdded }}.</h6>
                             <h4 *ngIf='!activity.title && !activity.email'>New Ministry was added.</h4>
                             <h6 class="font-weight-bold"
-                                *ngIf='wallService.isExpanseDetailsOn === true && !activity.title && !activity.email'>
+                                *ngIf='isDetailsOn === true && !activity.title && !activity.email'>
                                 Ministry of {{ activity.office }}
                                 ({{activity.year}}) was establish.</h6>
                         </div>

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { User } from 'src/app/interfaces/user';
 import { WallService } from './wall.service';
-import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -12,35 +12,41 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  loginURL: string;
   users: User[];
-  activeUser: any = null;
+  activeUser: User = null;
+
   loginForm: FormGroup;
   signupForm: FormGroup;
+
   isWrongDetailsAlertOn: boolean = false;
   isloginMode: boolean = true;
   isConfirmed: boolean = false;
+
   numberOfOffices: any = null;
   numberOfExpenses: any = null;
-  el: any;
 
-  constructor(public http: HttpClient, public wallService: WallService, private router: Router) {
-    let activeEmail = localStorage.getItem("email");
-    this.http.get(`${this.wallService.API_URL}/users?email=${activeEmail}`)
+  loginURL: string;
+
+  constructor(
+    public http: HttpClient,
+    public wallService: WallService,
+    private router: Router) {
+    localStorage.getItem("email") === '' || localStorage.getItem("email") === null ? this.activeUser = null : this.getActiveUser();
+  }
+
+  getActiveUser() {
+    this.http.get(`${this.wallService.API_URL}/users?email=${localStorage.getItem("email")}`)
       .subscribe(
         res => {
-          if (res[0] != undefined) {
-            this.isConfirmed = true;
-            this.activeUser = res[0];            
-            this.activeUser.timeStamp = moment(this.activeUser.timeStamp).format('LL')
-            this.isConfirmed = false;
-            this.getActiveUserContributionNum('offices');
-            this.getActiveUserContributionNum('expenses');
-          } else {
-            this.activeUser = null;
-          }
+          this.isConfirmed = true;
+          this.activeUser = res[0];
+          this.activeUser.timeStamp = moment(this.activeUser.timeStamp).format('LL');
+          this.isConfirmed = false;
         },
-        err => { console.log(err) }
+        err => { console.log(err) },
+        ()=>{
+          this.getActiveUserContributionNum();
+        }
       )
   }
 
@@ -55,12 +61,16 @@ export class AuthService {
             this.isConfirmed = false;
             this.isWrongDetailsAlertOn = true;
             this.activeUser = null;
+            setTimeout(() => {
+              this.isWrongDetailsAlertOn = false;
+            }, 2500);
           } else {
             this.isConfirmed = false;
             this.isWrongDetailsAlertOn = false;
             this.activeUser = res[0];
-            this.wallService.page = "wall";moment
-            this.activeUser.timeStamp = moment(this.activeUser.timeStamp).format()
+            this.getActiveUserContributionNum();
+            this.wallService.page = "wall"; moment
+            this.activeUser.timeStamp = moment(this.activeUser.timeStamp).format('LL')
             localStorage.setItem("email", this.activeUser.email);
           }
         },
@@ -81,17 +91,19 @@ export class AuthService {
   }
 
   signup(e) {
-    this.activeUser = e.value;
-    localStorage.setItem("email", this.activeUser.email);
-    this.activeUser.timeStamp = moment().format()
+    localStorage.setItem("email", e.value.email);
+    this.activeUser = {
+      'email': e.value.email,
+      'password': e.value.password,
+      'name': e.value.name,
+      'timeStamp': moment().format(),
+      'type': 'user',
+      'id': 0
+    }
     this.http.post(`${this.wallService.API_URL}/users`, this.activeUser)
-      .subscribe(
-        res => { },
-        err => { console.log(err) }
-      )
+      .subscribe(err => { console.log(err) })
     this.activeUser.timeStamp = moment(this.activeUser.timeStamp).startOf('minutes').fromNow();
-
-    this.signupForm.reset()
+    this.signupForm.reset();
   }
 
   clearWarning() {
@@ -102,23 +114,17 @@ export class AuthService {
     this.isloginMode = !this.isloginMode;
   }
 
-  getActiveUserContributionNum(el) {
-    (el === 'expenses') ? this.el = 'expenses' : this.el = 'offices';
-    let URL = `${this.wallService.API_URL}/${this.el}?userAdded=${this.activeUser.name}`
-    this.http.get(URL)
+  getActiveUserContributionNum() {
+    this.http.get(`${this.wallService.API_URL}/offices?userAdded=${this.activeUser.name}`)
       .subscribe(
-        res => {
-          let count = 0;
-          for (let prop in res) {
-            ++count;
-            (el === 'expenses') ? this.numberOfExpenses = count : this.numberOfOffices = count;
-          }
-        },
-        err => {
-          console.log(err)
-        }
+        res => { Object.entries(res).length === 0 ? this.numberOfOffices = null : this.numberOfOffices = Object.entries(res).length },
+        err => { console.log(err) }
       )
-
+    this.http.get(`${this.wallService.API_URL}/expenses?userAdded=${this.activeUser.name}`)
+      .subscribe(
+        res => { Object.entries(res).length === 0 ? this.numberOfExpenses = null : this.numberOfExpenses = Object.entries(res).length },
+        err => { console.log(err) }
+      )
   }
 
 }

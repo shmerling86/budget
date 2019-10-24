@@ -11,8 +11,9 @@ import { Office } from 'src/app/interfaces/office';
 export class EditOfficeComponent implements OnInit {
 
   editForm: FormGroup;
-  editItem : Office;
+  editItem: Office;
   years: Array<string> = this.wallService.years;
+
   isEditMode: boolean = this.wallService.isEditMode;
 
   constructor(public wallService: WallService) { }
@@ -23,8 +24,9 @@ export class EditOfficeComponent implements OnInit {
       'year': new FormControl(null, [Validators.required]),
       'amount': new FormControl(null, [Validators.required, Validators.min(1000000), Validators.max(10000000000)])
     });
-    
-    this.editItem = this.wallService.selectedResults[0];    
+
+    this.editItem = this.wallService.selectedResults[0];
+
     this.editForm.setValue({
       office: this.editItem['office'],
       year: this.editItem['year'].toString().substring(0, 4),
@@ -33,7 +35,7 @@ export class EditOfficeComponent implements OnInit {
   }
 
   onUpdate(office) {
-    this.wallService.updateItem(this.editItem.id, office.value);
+    this.wallService.updateMinistry(this.editItem, office.value);
   }
 
 }

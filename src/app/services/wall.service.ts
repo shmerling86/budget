@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
-import { Office } from 'src/app/interfaces/office';
+import { Expense } from 'src/app/interfaces/expense';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -10,16 +11,21 @@ import { Office } from 'src/app/interfaces/office';
 
 export class WallService {
 
-  API_URL = "https://json-server-heroku-psjzcvonsw.now.sh";
-  years: Array<any> = ['2018', '2019', '2020'];
-  resultStack: Array<Office> = [];
-  selectedResults: Array<Office> = [];
+  API_URL = "https://json-server-heroku-xobunlfunp.now.sh";
 
-  chartColors = [{ backgroundColor: ['#45aaf2', '#fc5c65', '#26de81'] }];
+  AllOffices = new Subject<any[]>();
+  allDoughnutAmounts = new Subject<any[]>();
+  years: Array<any> = ['2018', '2019', '2020'];
+  resultStack: Array<any> = [];
+  selectedResults: Array<any> = [];
+  chartColors = [{ backgroundColor: ['#45aaf2', '#fc5c65', '#26de81', '#f7b731', '#a55eea', '#2d98da', '#0fb9b1'] }];
 
   isEditMode: boolean = false;
-  isExpenseMode: boolean = false;
-  isExpanseDetailsOn: boolean = false;
+  isEditExpenseMode: boolean = false;
+  isFinishUpdate: boolean = false;
+  isFinishAdd: boolean = false;
+  isFinishAddOffice: boolean = false;
+  isFinishUpdateExpense: boolean = false;
 
   page: string = 'wall';
   searchKey: string = 'ministry';
@@ -27,85 +33,31 @@ export class WallService {
   clickedSearchKey: any;
   dbKind: string = 'ministries';
 
-  onlyExpenses: Array<any> = [];
+  onlyExpenses: Array<Expense> = [];
   onlyOffices: Array<any> = [];
   onlyUsers: Array<any> = [];
   listOfAllOffices: Array<any> = [];
 
-  public doughnutChartLabels = [];
-  public doughnutChartData = [];
-  public doughnutChartType = 'doughnut';
-  public doughnutChartOptions = {
+   doughnutChartLabels: Array<any> = [];
+   doughnutChartData : Array<any> = [];
+   doughnutChartType: string = 'doughnut';
+   doughnutChartOptions: object = {
     legend: {
       position: 'left',
     }
   }
   activities: Array<any> = [];
   filter: string = 'all';
+  db: string;
 
   constructor(private http: HttpClient) {
   }
-
-  // getExpensesData(clickedOffice?) {
-  //   this.isCalcExpense = true;
-  //   this.doughnutChartLabels = [];
-  //   this.doughnutChartData = [];
-  //   this.officesWithExpenses = [];
-  //   this.wallService.getRandColor();
-  //   this.http.get(`${this.API_URL}/expenses?year=${this.dashboardYear}`)
-  //     .subscribe(
-  //       expenses => {
-  //         if (clickedOffice == undefined) {
-  //           this.getOfficeAmount(expenses[0].office);
-  //         } else {
-  //           this.getOfficeAmount(clickedOffice);
-  //         }
-  //         for (const key in expenses) {
-  //           const expense = expenses[key];
-  //           this.officesWithExpenses.push(expense.office)
-  //           this.officesWithExpensesFiltered = [...new Set(this.officesWithExpenses)]
-
-  //           if (clickedOffice == undefined) {
-  //             if (expense.office == expenses[0].office) {
-  //               this.doughnutChartLabels.push(expense.title);
-  //               this.doughnutChartData.push(Number(expense.amount));
-  //               this.totalAllAmounts = this.doughnutChartData.reduce((a, b) => { return a + b; });
-  //             }
-  //           } else {
-  //             if (expense.office == clickedOffice) {
-  //               this.doughnutChartLabels.push(expense.title);
-  //               console.log(expense.amount);
-
-  //               this.doughnutChartData.push(Number(expense.amount));
-  //               this.totalAllAmounts = this.doughnutChartData.reduce((a, b) => { return a + b; });
-  //             }
-  //           }
-  //         }
-  //       },
-  //       err => {
-  //         console.log(err);
-  //       }
-  //     )
-  // }
-
-  // getOfficeAmount(office) {
-  //   this.http.get(`${this.API_URL}/offices?office=${office}`)
-  //     .subscribe(
-  //       res => {
-  //         this.others = Number(res[0].amount) - this.totalAllAmounts;
-  //         this.doughnutChartLabels.push("Others");
-  //         this.doughnutChartData.push(this.others);
-  //         this.isCalcExpense = false;
-  //       },
-  //       err => {
-  //         console.log(err)
-  //       })
-  // }
 
   resultsBySearchText(clickedSearchKey) {
     this.clickedSearchKey = clickedSearchKey;
     this.resultStack = [];
     this.isEditMode = false;
+    this.isEditExpenseMode = false;
     this.selectedResults = [];
     this.text = this.text.trim();
     let subSearch;
@@ -140,57 +92,115 @@ export class WallService {
   }
 
   addOffice(newOffice) {
-    // this.getRandColor();
+    this.getRandColor();
     this.http.post(this.API_URL + '/offices', newOffice)
       .subscribe(
         res => { },
         err => { console.log(err) }
       )
+    this.isFinishAddOffice = true;
+    setTimeout(() => {
+      this.isFinishAddOffice = false;
+    }, 2500);
   }
 
   addExpense(newExpense) {
-    // this.getRandColor();
+    this.getRandColor();
     this.http.post(this.API_URL + '/expenses', newExpense)
       .subscribe(
         res => { },
         err => { console.log(err) }
       )
+    this.isFinishAdd = true;
+    setTimeout(() => {
+      this.isFinishAdd = false;
+    }, 2500);
   }
 
-  removeItem(id) {
-    this.isEditMode = false;
+  removeItem(id, type) {
+    if (type === 'office') {
+      this.isEditMode = false;
+      this.db = 'Offices';
+    } else {
+      this.isEditExpenseMode = false;
+      this.db = 'Expenses';
+    }
     this.selectedResults = [];
     this.resultStack = this.resultStack.filter(res => res.id != id);
 
-    this.http.delete(this.API_URL + '/offices/' + id)
+    this.http.delete(`${this.API_URL}/${this.db}/${id}`)
       .subscribe(
         res => { },
         err => { console.log(err) });
   }
 
-  updateItem(id, office) {
+  updateMinistry(oldItem, newOffice) {
     this.isEditMode = false;
-    this.selectedResults[0].office = office.office;
-    this.selectedResults[0].year = office.year;
-    this.selectedResults[0].amount = office.amount;
-    this.resultStack = [];
+    this.isFinishUpdate = false;
 
-    this.http.patch(`${this.API_URL}/offices/${id}`, {
-      office: office['office'],
-      amount: office['amount'],
-      year: office['year']
-    })
+    this.http.patch(`${this.API_URL}/offices/${oldItem.id}`, {
+      office: newOffice['office'],
+      amount: newOffice['amount'],
+      year: newOffice['year']
+    }).subscribe(res => { }, err => { console.log(err) })
+
+    this.http.get(`${this.API_URL}/expenses?office=${oldItem.office}`)
       .subscribe(
-        res => { },
-        err => { console.log(err) }
+        res => {
+          for (let key in res) {
+            this.http.patch(`${this.API_URL}/expenses/${res[key].id}`, {
+              office: newOffice['office'],
+              year: newOffice['year']
+            }).subscribe(res => {
+            }, err => { console.log(err) })
+          }
+        }, err => { console.log(err) },
+        () => {
+          this.isFinishUpdate = true;
+          setTimeout(() => {
+            this.isFinishUpdate = false;
+          }, 2500);
+        }
       )
+    this.selectedResults[0].office = newOffice.office;
+    this.selectedResults[0].year = newOffice.year;
+    this.selectedResults[0].amount = newOffice.amount;
+    this.resultStack = [];
+  }
+
+  updateExpenses(oldItem, newOffice) {
+    this.isEditExpenseMode = false;
+    this.isFinishUpdateExpense = false;
+    
+    
+    this.http.patch(`${this.API_URL}/expenses/${oldItem.id}`, {
+      office: newOffice['office'],
+      year: newOffice['year'],
+      title: newOffice['title'],
+      amount: newOffice['amount']
+    }).subscribe(res => { }, err => { console.log(err) },
+    () => {
+      this.isFinishUpdateExpense = true;
+        setTimeout(() => {
+          this.isFinishUpdateExpense = false;
+        }, 2500);
+      })
+      
+      this.doughnutChartData[this.doughnutChartData.indexOf(oldItem.amount)] = newOffice.amount;
+      this.allDoughnutAmounts.next(this.doughnutChartData.slice())
+      this.doughnutChartLabels[this.doughnutChartLabels.indexOf(oldItem.title)] = newOffice.title;
+
+      this.selectedResults[0].office = newOffice.office;
+      this.selectedResults[0].title = newOffice.title;
+      this.selectedResults[0].year = newOffice.year;
+      this.selectedResults[0].amount = newOffice.amount;
 
   }
 
-  selectedResult(matchSelected) {
+  selectedResult(matchSelected) {    
     this.getItemChartDetails(matchSelected);
     matchSelected.timeStamp = moment(matchSelected.timeStamp).startOf('minutes').fromNow();
-    this.selectedResults = []
+    this.selectedResults = [];
     this.resultStack = [];
     this.text = '';
     this.selectedResults.push(matchSelected);
@@ -203,11 +213,10 @@ export class WallService {
       .subscribe(
         res => {
           for (const key in res) {
-            if (res.hasOwnProperty(key)) {
-              const element = res[key];
-              this.doughnutChartLabels.push(element.title);
-              this.doughnutChartData.push(element.amount);
-            }
+            this.doughnutChartLabels.push(res[key].title);
+            this.doughnutChartData.push(res[key].amount);
+            this.allDoughnutAmounts.next(this.doughnutChartData.slice())
+
           }
         }
       )
@@ -229,11 +238,9 @@ export class WallService {
       .subscribe(
         res => {
           for (const key in res) {
-            if (res.hasOwnProperty(key)) {
-              const element = res[key];
-              this.listOfAllOffices.push(element.office)
-            }
+            this.listOfAllOffices.push(res[key]);
           }
+          this.AllOffices.next(this.listOfAllOffices.slice());
         }
       )
   }
@@ -273,6 +280,5 @@ export class WallService {
         return this.activities;
     }
   }
-
 
 }

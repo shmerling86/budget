@@ -1,13 +1,15 @@
 <div class="main">
     <div class="users-box">
         <div class="users-box-item users-box-air">
-            <h3>Contribution:</h3>
-            <span>
-                <span class="numOfUserCont">{{ authService.numberOfOffices }}</span> Ministries
+            <span (click)='goToAdd("office")'>
+                <span class="numOfUserCont">{{ authService.numberOfOffices ? authService.numberOfOffices : 0 }}</span>
+                Ministries
             </span>
-            <span class="date-down">
-                <span class="numOfUserCont">{{ authService.numberOfExpenses }}</span> Expenses
+            <span (click)='goToAdd("expense")'>
+                <span class="numOfUserCont">{{ authService.numberOfExpenses ? authService.numberOfExpenses : 0 }}</span>
+                Expenses
             </span>
         </div>
+        <h6 class="text-muted">Thank you for your contribution {{authService.activeUser.name}}.</h6>
     </div>
 </div>

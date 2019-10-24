@@ -4,8 +4,7 @@
   width: 86%;
   right: 0;
   position: absolute;
-  padding: 1em;
-    
+  padding: 1em 14em;
   .the-wall {
     position: relative;
     height: 520px;
@@ -24,17 +23,23 @@
       display: flex;
       justify-content: flex-end;
       padding: 1.3em;
-      
+
       p {
         padding: 0 1em;
       }
       .dropdown {
         button {
           border-radius: 0%;
+          span {
+            font-size: 0.7em;
+          }
         }
         .dropdown-menu {
           a {
             color: rgba(0, 0, 0, 0.5);
+            span {
+              font-size: 0.7em;
+            }
             &:hover {
               background: rgba(235, 235, 235, 0.5);
               color: black;
@@ -62,41 +67,34 @@
         height: 12em;
         padding: 1em;
         text-align: center;
-        box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
-        border-radius: 10px;
+        box-shadow: 0px 1px 10px -5px rgba(0, 0, 0, 0.75);
+        background-color: rgba(253, 228, 228, 0.5);
         .title-box {
           display: flex;
           justify-content: space-between;
-          i {
-            color: #fff;
-            font-size: 1.3em;
+          img {
+            width: 3.5em;
           }
           p {
-            color: #fff;
+            color: #1e1e2d;
             font-size: 1.3em;
           }
         }
-        .title-box-arrow {
-          display: flex;
-          justify-content: space-between;
-          i {
-            color: #fff;
-            font-size: 1.3em;
-            margin: auto 0;
-            &:hover {
-              cursor: pointer;
-            }
-          }
-        }
+
         span {
-          font-weight: bold;
-          color: #fff;
+          color: #1e1e2d;
           font-size: 2em;
         }
       }
       .str-chart {
         width: 50em;
         margin-top: 2em;
+        .alert-dismissible{
+          span{
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
         canvas {
           margin: 1em auto;
         }

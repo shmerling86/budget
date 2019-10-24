@@ -4,7 +4,7 @@
   width: 86%;
   right: 0;
   position: absolute;
-  padding: 1em;
+  height: 650px;
 
   .form-wraper {
     display: flex;
@@ -14,9 +14,8 @@
     background: rgba(255, 255, 255, 0.6);
     box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
-    height: 562px;
-    width: 50%;
-    margin: 6em auto 0 auto;
+    margin: 6em;
+    padding: 1em;
     form {
       width: 30em;
       padding: 2em;
@@ -38,5 +37,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    button{
+      padding: 0;
+    }
   }
 }

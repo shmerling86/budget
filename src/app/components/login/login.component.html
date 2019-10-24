@@ -10,14 +10,13 @@
         </div>
         <div class="box-item-form">
             <div>
-                <span *ngIf='authService.isWrongDetailsAlertOn'>
-                    <p class="alert alert-warning">Wrong identification details! <img
-                            (click)='authService.clearWarning()'
-                            src="https://img.icons8.com/officexs/100/000000/xbox-x.png">
-                    </p>
-                </span>
+                
                 <form [formGroup]='authService.loginForm' (ngSubmit)="authService.login(authService.loginForm)">
                     <div class="form-group">
+                        <div *ngIf='authService.isWrongDetailsAlertOn' class="alert alert-danger alert-dismissible fade show">
+                            <strong>Incorrect details!</strong>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
                         <label for="email">User</label>
                         <input type="email" class="form-control" formControlName="email" id="email"
                             placeholder="Enter email">

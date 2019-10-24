@@ -33,8 +33,6 @@
                 is required</span></span>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-outline-warning btn-sm btn-clear-selcted" (click)='wallService.clearSelected()'>Clear
-            selected</button>
         <div class="icons">
             <button type="submit" class="btn btn-sm" [disabled]="!editForm.valid && !editForm.touched || 
                 !editForm.get('amount').valid && editForm.get('amount').touched ||

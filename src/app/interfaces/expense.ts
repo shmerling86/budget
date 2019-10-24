@@ -1,9 +1,10 @@
-export interface Office {
+export interface Expense {
     office: string,
-    amount: number,
     year: number,
     timeStamp: string,
+    title: string,
     userAdded: string,
+    amount: number,
     type: string,
     id: number
 }

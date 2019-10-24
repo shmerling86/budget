@@ -1,5 +1,4 @@
 <div class="main">
-
     <div class="the-wall" *ngIf="!totalAllAmounts; else expenseLoader">
         <ngx-spinner bdColor="none" size="medium" color="#000" [fullScreen]="false" type="square-jelly-box">
         </ngx-spinner>
@@ -10,34 +9,40 @@
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ officeChoosen }}
+                        {{ dbOffice.office }}<span>({{ dbOffice.year }})</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <h6 class="dropdown-header">Ministry</h6>
-                        <a class="dropdown-item" *ngFor="let office of wallService.listOfAllOffices"
-                            (click)='changeOffice(office)'>{{ office }}</a>
+                        <a class="dropdown-item" *ngFor="let office of listOfAllOffices; let i = index"
+                            (click)='getExpensesData(office, i)'>{{ office.office }}<span>({{ office.year }})</span>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="charts-item">
-                <div class="data-chart" style="background: rgb(130, 150, 240);">
+                <div class="data-chart">
                     <div class="title-box">
                         <p>In use</p>
-                        <i class="fas fa-coins"></i>
+                        <img src="https://img.icons8.com/plasticine/100/000000/check-book.png">
                     </div>
                     <hr>
-                    <span>{{ 100*(totalAllAmounts/officeChoosenAmount) | number: '1.0-0'  }}%</span>
+                    <span [class.text-danger]='totalAllAmounts/dbOffice.amount >= 1'>{{ 100*(totalAllAmounts/dbOffice.amount) | number: '1.0-0'  }}%</span>
                 </div>
-                <div class="data-chart" style="background: rgb(243, 193, 117)">
+                <div class="data-chart">
                     <div class="title-box">
                         <p>Year</p>
-                        <i class="fas fa-chart-line"></i>
+                        <img src="https://img.icons8.com/officel/100/000000/statistics.png">
                     </div>
                     <hr>
-                    <span>{{ currOfficeYear }}</span>
+                    <span>{{ dbOffice.year }}</span>
                 </div>
                 <div class="str-chart">
-                    <h2>Expenses</h2>
+                    <div *ngIf='!doughnutChartData.length' class="alert alert-warning alert-dismissible fade show">
+                        <strong>No Expenses!</strong> You can add by clicking <span
+                            (click)='router.navigateByUrl("/new-expense")'>ADD</span> on the navigation bar.
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    <h2>{{doughnutChartData.length ? 'Expenses': ''}}</h2>
                     <canvas baseChart [data]="doughnutChartData" [colors]="wallService.chartColors"
                         [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [options]="doughnutChartOptions">
                     </canvas>

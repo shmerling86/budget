@@ -3,17 +3,21 @@
         <h4>New Ministry</h4>
         <form [formGroup]='addForm' (ngSubmit)='onAddItem()'>
             <div class="form-group">
+                <div *ngIf='wallService.isFinishAddOffice' class="alert alert-success alert-dismissible fade show">
+                    <strong>Successfully Added!</strong>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
                 <label for="office">Ministry</label>
                 <input type="text" class="form-control" formControlName='office'>
                 <span *ngIf="!addForm.get('office').valid && addForm.get('office').touched">
                     <span *ngIf="addForm.get('office').errors['maxlength']" class="form-text">
-                            Ministry Name is too long
+                        Ministry Name is too long
                     </span>
                     <span *ngIf="addForm.get('office').errors['minlength']" class="form-text">
-                            Ministry Name is too short
+                        Ministry Name is too short
                     </span>
                     <span *ngIf="addForm.get('office').errors['required']" class="form-text">
-                            Ministry Name is required
+                        Ministry Name is required
                     </span>
                 </span>
                 <label for="year">Year</label>

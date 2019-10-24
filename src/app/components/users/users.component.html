@@ -11,6 +11,10 @@
         </div>
         <div class="users-box-item">
             <form [formGroup]='updateForm' (ngSubmit)="updateProfile(updateForm)">
+                    <div *ngIf='isFinishUpdate' class="alert alert-success alert-dismissible fade show">
+                            <strong>Successfully Update!</strong>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
                 <label for="name"></label>
                 <input type="text" formControlName="name" class="form-control" id="name" placeholder="Name">
                 <span *ngIf="!updateForm.get('name').valid">
@@ -51,11 +55,10 @@
                 <div class="btn-box">
                     <button type="submit" class="btn btn-sm btn-outline-primary" [disabled]='!updateForm.valid'>Update
                         Profile</button>
-
                 </div>
             </form>
         </div>
-        <span [style.font-size.em]="0.8" class="text-muted text-center">Sign up in
+        <span [style.font-size.em]="0.8" class="text-muted text-center">Signed up in
             {{ authService.activeUser.timeStamp }}</span>
     </div>
 </div>

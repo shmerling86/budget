@@ -4,8 +4,7 @@
   width: 86%;
   right: 0;
   position: absolute;
-  padding: 1em;
-
+  height: 650px;
   .users-box {
     display: flex;
     justify-content: center;
@@ -14,8 +13,8 @@
     background: #fff;
     box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
-    width: 50%;
-    margin: 6em auto 0 auto;
+    margin: 6em;
+    padding: 7em;
 
     .users-box-item {
       display: flex;
@@ -26,16 +25,16 @@
       span {
         font-size: 1.1em;
       }
-      .date-down {
-        margin-bottom: 12em;
-      }
     }
     .users-box-air {
       padding: 4em;
-      .numOfUserCont {
-        font-weight: bold;
-        color: #dc3545;
-        font-size: 1.1em;
+      span {
+        cursor: pointer;
+        .numOfUserCont {
+          font-weight: bold;
+          color: #dc3545;
+          font-size: 1.1em;
+        }
       }
     }
   }

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +23,7 @@ import { ActivityComponent } from './components/activity/activity.component';
 import { ContributionComponent } from './components/contribution/contribution.component';
 import { SearchComponent } from './components/search/search.component';
 import { DashboardExpensesComponent } from './components/dashboard-expenses/dashboard-expenses.component';
+import { EditExpenseComponent } from './components/wall/edit-expense/edit-expense.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,8 @@ import { DashboardExpensesComponent } from './components/dashboard-expenses/dash
     ActivityComponent,
     ContributionComponent,
     SearchComponent,
-    DashboardExpensesComponent
+    DashboardExpensesComponent,
+    EditExpenseComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,6 @@ import { DashboardExpensesComponent } from './components/dashboard-expenses/dash
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
-    FontAwesomeModule,
     ClickOutsideModule,
     BrowserAnimationsModule
 
