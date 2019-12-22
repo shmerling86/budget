@@ -21,20 +21,20 @@
                         <div class="time">{{ activity.timeStamp }}</div>
                         <div class="desc">
 
-                            <h4 *ngIf='activity.email'>New user sign up.</h4>
+                            <h4 *ngIf='activity.email'>New user signed up.</h4>
                             <h6 class="font-weight-bold"
                                 *ngIf='isDetailsOn === true && activity.email'>
-                                {{ activity.name }} sign up.</h6>
+                                {{ activity.name }} signed up.</h6>
                             <h4 *ngIf='activity.title'>New expense was added.</h4>
                             <h6 class="font-weight-bold"
                                 *ngIf='isDetailsOn === true && activity.title && !activity.email'>The
                                 {{ activity.title }} expense for the ministry of {{ activity.office }}
                                 ({{ activity.year }}) was added by {{ activity.userAdded }}.</h6>
-                            <h4 *ngIf='!activity.title && !activity.email'>New Ministry was added.</h4>
+                            <h4 *ngIf='!activity.title && !activity.email'>New Ministry established.</h4>
                             <h6 class="font-weight-bold"
                                 *ngIf='isDetailsOn === true && !activity.title && !activity.email'>
                                 Ministry of {{ activity.office }}
-                                ({{activity.year}}) was establish.</h6>
+                                ({{activity.year}}) was established.</h6>
                         </div>
                     </li>
                 </ul>

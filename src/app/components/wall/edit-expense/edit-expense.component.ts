@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { WallService } from 'src/app/services/wall.service';
 import { Expense } from 'src/app/interfaces/expense';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'edit-expense',
@@ -9,8 +10,8 @@ import { Expense } from 'src/app/interfaces/expense';
   styleUrls: ['./edit-expense.component.scss']
 })
 
-export class EditExpenseComponent implements OnInit {
-
+export class EditExpenseComponent implements OnInit,OnDestroy {
+  AllOffices:Subscription;
   editExpenseForm: FormGroup;
   editItem: Expense;
   years: Array<string> = this.wallService.years;
@@ -26,9 +27,8 @@ export class EditExpenseComponent implements OnInit {
       'title': new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)])
     });
 
-    this.wallService.getAllOffices();
-    this.wallService.AllOffices
-      .subscribe(
+     this.wallService.getAllOffices();
+     this.AllOffices = this.wallService.AllOffices.subscribe(
         res => { this.listOfAllOffices = res }
       )
 
@@ -46,4 +46,7 @@ export class EditExpenseComponent implements OnInit {
     this.wallService.updateExpenses(this.editItem, office.value);
   }
 
+  ngOnDestroy():void{
+  if(this.AllOffices)  this.AllOffices.unsubscribe();
+  }
 }

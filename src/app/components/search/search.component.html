@@ -2,7 +2,7 @@
     <div class="search-box" [ngSwitch]="wallService.searchKey">
         <input type="text" *ngSwitchCase="wallService.searchKey" class="search"
             placeholder="Search by {{ wallService.searchKey }}..." [(ngModel)]="wallService.text"
-            (ngModelChange)='wallService.resultsBySearchText(wallService.searchKey)' autofocus>
+            (ngModelChange)='wallService.resultsBySearchText(wallService.searchKey)'>
         <img title='Search by' class="set-img" src="https://img.icons8.com/dotty/100/000000/advanced-search.png"
             (clickOutside)="onClickedOutside()" (click)="onClickSetting()" />
     </div>

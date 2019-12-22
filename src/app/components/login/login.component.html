@@ -19,7 +19,7 @@
                         </div>
                         <label for="email">User</label>
                         <input type="email" class="form-control" formControlName="email" id="email"
-                            placeholder="Enter email">
+                            placeholder="name@name.com">
                         <span
                             *ngIf="!authService.loginForm.get('email').valid && authService.loginForm.get('email').touched">
                             <span *ngIf="authService.loginForm.get('email').errors['required']"
@@ -33,12 +33,14 @@
                         </span>
                     </div>
                     <div class="form-group">
+                       
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" formControlName="password" id="password"
-                            placeholder="Password" autocomplete>
+                        <show-hide-password size="md"  [btnOutline]="false">
+                            <input type="password" formControlName="password" class="form-control" id="password"
+                                        placeholder="Password" autocomplete name="password">
+                                </show-hide-password>
                         <span
                             *ngIf="!authService.loginForm.get('password').valid && authService.loginForm.get('password').touched">
-
                             <span *ngIf="authService.loginForm.get('password').errors['maxlength']"
                                 class="form-text text-danger">
                                 Password is too long

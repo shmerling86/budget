@@ -10,11 +10,11 @@
             </span>
         </div>
         <div class="users-box-item">
-            <form [formGroup]='updateForm' (ngSubmit)="updateProfile(updateForm)">
-                    <div *ngIf='isFinishUpdate' class="alert alert-success alert-dismissible fade show">
-                            <strong>Successfully Update!</strong>
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        </div>
+            <form [formGroup]='updateForm' (ngSubmit)="authService.updateProfile(updateForm)">
+                <div *ngIf='authService.isFinishUpdate' class="alert alert-success alert-dismissible fade show">
+                    <strong>Successfully Update!</strong>
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
                 <label for="name"></label>
                 <input type="text" formControlName="name" class="form-control" id="name" placeholder="Name">
                 <span *ngIf="!updateForm.get('name').valid">
@@ -38,20 +38,24 @@
                         Email name is required
                     </span>
                 </span>
-                <label for="password"></label>
-                <input type="password" formControlName="password" class="form-control" id="password"
-                    placeholder="Password" autocomplete>
-                <span *ngIf="!updateForm.get('password').valid">
-                    <span *ngIf="updateForm.get('password').errors['maxlength']" class="form-text text-danger">
-                        Password is too long
-                    </span>
-                    <span *ngIf="updateForm.get('password').errors['minlength']" class="form-text text-danger">
-                        Password is too short
-                    </span>
-                    <span *ngIf="updateForm.get('password').errors['required']" class="form-text text-danger">
-                        Password is required
-                    </span>
-                </span>
+                <div class="form-group">
+                    <label for="password"></label>
+                    <show-hide-password size="md" [btnOutline]="false">
+                        <input type="password" formControlName="password" class="form-control" id="password"
+                            placeholder="Password" autocomplete name="password">
+                    </show-hide-password>
+                </div>
+                        <span *ngIf="!updateForm.get('password').valid">
+                            <span *ngIf="updateForm.get('password').errors['maxlength']" class="form-text text-danger">
+                                Password is too long
+                            </span>
+                            <span *ngIf="updateForm.get('password').errors['minlength']" class="form-text text-danger">
+                                Password is too short
+                            </span>
+                            <span *ngIf="updateForm.get('password').errors['required']" class="form-text text-danger">
+                                Password is required
+                            </span>
+                        </span>
                 <div class="btn-box">
                     <button type="submit" class="btn btn-sm btn-outline-primary" [disabled]='!updateForm.valid'>Update
                         Profile</button>

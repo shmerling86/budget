@@ -5,12 +5,15 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { User } from 'src/app/interfaces/user';
 import { WallService } from './wall.service';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  formChange = new Subject<object>();
 
   users: User[];
   activeUser: User = null;
@@ -21,6 +24,7 @@ export class AuthService {
   isWrongDetailsAlertOn: boolean = false;
   isloginMode: boolean = true;
   isConfirmed: boolean = false;
+  isFinishUpdate: boolean = false;
 
   numberOfOffices: any = null;
   numberOfExpenses: any = null;
@@ -53,8 +57,7 @@ export class AuthService {
   login(user) {
     this.isConfirmed = true;
     this.isWrongDetailsAlertOn = false;
-    const loginURL = `${this.wallService.API_URL}/users?email=${user.value.email}&password=${user.value.password}`;
-    this.http.get(loginURL)
+    this.http.get(`${this.wallService.API_URL}/users?email=${user.value.email}&password=${user.value.password}`)
       .subscribe(
         res => {
           if (res[0] == undefined) {
@@ -125,6 +128,43 @@ export class AuthService {
         res => { Object.entries(res).length === 0 ? this.numberOfExpenses = null : this.numberOfExpenses = Object.entries(res).length },
         err => { console.log(err) }
       )
+  }
+
+  updateProfile(updatedItem) {
+    this.isFinishUpdate = false;
+
+    this.http.patch(`${this.wallService.API_URL}/users/${this.activeUser['id']}`, {
+      name: updatedItem.value['name'],
+      email: updatedItem.value['email'],
+      password: updatedItem.value['password']
+    }).subscribe(res => { }, err => { console.log(err) })
+
+    this.http.get(`${this.wallService.API_URL}/offices?userAdded=${this.activeUser['name']}`)
+      .subscribe(
+        res => {
+          for (let key in res) {
+            this.http.patch(`${this.wallService.API_URL}/offices/${res[key].id}`, {
+              userAdded: updatedItem.value['name'],
+            }).subscribe(res => { }, err => { console.log(err) })
+          }
+        })
+
+    this.http.get(`${this.wallService.API_URL}/expenses?userAdded=${this.activeUser['name']}`)
+      .subscribe(
+        res => {
+          for (let key in res) {
+            this.http.patch(`${this.wallService.API_URL}/expenses/${res[key].id}`, {
+              userAdded: updatedItem.value['name'],
+            }).subscribe(res => { }, err => { console.log(err) },
+              () => {
+                this.isFinishUpdate = true;
+                this.formChange.next(updatedItem.value);
+                setTimeout(() => {
+                  this.isFinishUpdate = false;
+                }, 2500);
+              })
+          }
+        })
   }
 
 }

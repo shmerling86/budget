@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import * as moment from 'moment';
 import { Expense } from 'src/app/interfaces/expense';
 import { Subject } from 'rxjs';
+import * as moment from 'moment';
 
 
 @Injectable({
@@ -15,6 +15,7 @@ export class WallService {
 
   AllOffices = new Subject<any[]>();
   allDoughnutAmounts = new Subject<any[]>();
+
   years: Array<any> = ['2018', '2019', '2020'];
   resultStack: Array<any> = [];
   selectedResults: Array<any> = [];
@@ -93,7 +94,7 @@ export class WallService {
 
   addOffice(newOffice) {
     this.getRandColor();
-    this.http.post(this.API_URL + '/offices', newOffice)
+    this.http.post(`${this.API_URL}/offices`, newOffice)
       .subscribe(
         res => { },
         err => { console.log(err) }
@@ -106,7 +107,7 @@ export class WallService {
 
   addExpense(newExpense) {
     this.getRandColor();
-    this.http.post(this.API_URL + '/expenses', newExpense)
+    this.http.post(`${this.API_URL}/expenses`, newExpense)
       .subscribe(
         res => { },
         err => { console.log(err) }
@@ -171,8 +172,6 @@ export class WallService {
   updateExpenses(oldItem, newOffice) {
     this.isEditExpenseMode = false;
     this.isFinishUpdateExpense = false;
-    
-    
     this.http.patch(`${this.API_URL}/expenses/${oldItem.id}`, {
       office: newOffice['office'],
       year: newOffice['year'],
@@ -205,7 +204,7 @@ export class WallService {
     this.text = '';
     this.selectedResults.push(matchSelected);
   }
-
+  
   getItemChartDetails(matchSelected) {
     this.doughnutChartLabels = [];
     this.doughnutChartData = [];

@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { WallService } from 'src/app/services/wall.service';
 import { AuthService } from 'src/app/services/auth.service';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.scss']
 })
-export class ExpenseComponent implements OnInit {
-
+export class ExpenseComponent implements OnInit,OnDestroy {
+  AllOffices: Subscription;
   addExpenseForm: FormGroup;
   listOfAllOffices: any[] = [];
   
@@ -19,8 +20,7 @@ export class ExpenseComponent implements OnInit {
 
   ngOnInit() {
     this.wallService.getAllOffices();
-    this.wallService.AllOffices
-      .subscribe(
+    this.AllOffices = this.wallService.AllOffices.subscribe(
         res => {
           res.forEach(element => {
             this.listOfAllOffices.push(element['office'])
@@ -35,11 +35,10 @@ export class ExpenseComponent implements OnInit {
       'amount': new FormControl(null, [Validators.required, Validators.min(1000000), Validators.max(1000000000)]),
       'title': new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)])
     });
-
     this.wallService.isFinishAdd = false;
   }
 
-  onAddExpenseItem() {
+  onAddExpenseItem(): void {
     let newExpense = {
       'office': this.addExpenseForm.value.office,
       'year': Number(this.addExpenseForm.value.year),
@@ -50,6 +49,9 @@ export class ExpenseComponent implements OnInit {
     }
     this.wallService.addExpense(newExpense)
     this.addExpenseForm.reset();
+  }
+  ngOnDestroy(): void{
+   if(this.AllOffices) this.AllOffices.unsubscribe();
   }
 
 }

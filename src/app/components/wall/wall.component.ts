@@ -45,7 +45,7 @@ export class WallComponent implements OnInit {
     this.wallService.isFinishUpdate = false;
     this.wallService.isFinishUpdateExpense = false;
     this.wallService.allDoughnutAmounts.subscribe(
-      res => {this.wallService.doughnutChartData = res}
+      res => { this.wallService.doughnutChartData = res }
     )
 
   }

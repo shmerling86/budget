@@ -37,14 +37,13 @@ export class DashboardExpensesComponent implements OnInit, OnDestroy {
   listOfAllOfficesNames: any[] = [];
   listOfAllOffices: any[] = [];
 
-  private allOfficesSub: Subscription;
+  private AllOffices: Subscription;
 
   constructor(public wallService: WallService, public http: HttpClient, public router: Router) { }
 
   ngOnInit() {
     this.wallService.getAllOffices();
-    this.allOfficesSub = this.wallService.AllOffices
-      .subscribe(
+    this.AllOffices = this.wallService.AllOffices.subscribe(
         res => {
           for (const key in res) {
             this.listOfAllOffices.push(res[key]);
@@ -83,8 +82,8 @@ export class DashboardExpensesComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
-    this.allOfficesSub.unsubscribe();
+  ngOnDestroy(): void {
+    if(this.AllOffices) this.AllOffices.unsubscribe();
   }
 
 }

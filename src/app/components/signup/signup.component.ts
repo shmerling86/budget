@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
     this.authService.signupForm = new FormGroup({
       'name': new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
       'email': new FormControl('', [Validators.required, Validators.email]),
-      'password': new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)])
+      'password': new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(30)])
     });
   }
 

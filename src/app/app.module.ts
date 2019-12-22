@@ -7,6 +7,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard-offices/dashboard-offices.component';
@@ -53,7 +54,8 @@ import { EditExpenseComponent } from './components/wall/edit-expense/edit-expens
     ReactiveFormsModule,
     NgxSpinnerModule,
     ClickOutsideModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ShowHidePasswordModule
 
   ],
   providers: [],
