@@ -122,8 +122,13 @@
               "devServerTarget": "budget:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "ngx-gh:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "budget"
 }
