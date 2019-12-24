@@ -22,7 +22,9 @@ const routes: Routes = [
   { path: 'new-expense', component: ExpenseComponent },
   { path: 'activity', component: ActivityComponent },
   { path: 'contribution', component: ContributionComponent },
-  { path: 'profile', component: UsersComponent }
+  { path: 'profile', component: UsersComponent },
+  { path: '**', redirectTo: 'dashboard-offices' }
+
 ]
 
 @NgModule({

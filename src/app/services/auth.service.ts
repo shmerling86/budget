@@ -89,7 +89,7 @@ export class AuthService {
     this.wallService.selectedResults = [];
     this.wallService.resultStack = [];
     this.wallService.text = '';
-    localStorage.setItem("email", "");
+    localStorage.clear();
     this.router.navigateByUrl('/dashboard-offices');
   }
 

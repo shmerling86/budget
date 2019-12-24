@@ -12,9 +12,7 @@ import { WallService } from '../../services/wall.service';
 })
 
 export class DashboardComponent implements OnInit {
-  isFirstStart: boolean = true;
-  objOfAllData: any;
-
+  fetchedOffices: object;
   offices: Array<Office> = [];
   amounts: Array<any> = [];
   lastTotalAmounts: Array<any> = [];
@@ -47,7 +45,7 @@ export class DashboardComponent implements OnInit {
 
   officesWithExpenses: Array<any> = [];
   officesWithExpensesFiltered: Array<any> = [];
-  dataSource: Object;
+  dataSource: object;
   totalAllAmounts: any = 0;
   others: number = 0;
 
@@ -56,60 +54,55 @@ export class DashboardComponent implements OnInit {
     public wallService: WallService,
     public spinner: NgxSpinnerService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.spinner.show();
     this.getDataCurrYear();
   }
 
-  changeYear(year?) {
+  changeYear(year?): void {
     this.selectedIndex = 0;
     this.others = 0;
     this.dashboardYear = year;
     this.getDataCurrYear();
   }
 
-  getDataCurrYear() {
+  getDataCurrYear(): void {
     this.amounts = [];
     this.offices = [];
     this.percentageOfGrowth = 0;
-    if (this.isFirstStart) {
-      this.http.get(`${this.wallService.API_URL}/offices`)
-        .subscribe(
-          res => {
-            this.objOfAllData = Object.values(res);
-            this.calculateData();
-          }, err => { console.log(err) })
-      this.isFirstStart = false;
-    } else {
-      this.calculateData();
-    }
-    this.getPercentageOfGrowth();
+    this.http.get(`${this.wallService.API_URL}/offices`)
+      .subscribe(res => {
+        this.fetchedOffices = res;
+        this.calculateData();
+        this.getPercentageOfGrowth();
+      }, err => { console.log(err) })
   }
 
-  calculateData() {
+  calculateData(): void {
     this.lastTotalAmounts = [];
     this.lastTotalAmount = 0
-
-    for (let i = 0; i < this.objOfAllData.length; i++) {
-      if (this.objOfAllData[i].year == this.dashboardYear) {
-        this.offices.push(this.objOfAllData[i].office);
-        this.amounts.push(this.objOfAllData[i].amount);
-        this.totalAmounts = this.amounts.reduce((a, b) => a + b, 0);
-      }
-      if (this.objOfAllData[i].year == this.dashboardYear - 1) {
-        this.lastTotalAmounts.push(this.objOfAllData[i].amount);
-        this.lastTotalAmount = this.lastTotalAmounts.reduce((a, b) => a + b, 0);
+    for (let office in this.fetchedOffices) {
+      if (this.fetchedOffices.hasOwnProperty(office)) {
+        if (this.fetchedOffices[office].year == this.dashboardYear) {
+          this.offices.push(this.fetchedOffices[office].office);
+          this.amounts.push(this.fetchedOffices[office].amount);
+          this.totalAmounts = this.amounts.reduce((a, b) => a + b, 0);
+        }
+        if (this.fetchedOffices[office].year == this.dashboardYear - 1) {
+          this.lastTotalAmounts.push(this.fetchedOffices[office].amount);
+          this.lastTotalAmount = this.lastTotalAmounts.reduce((a, b) => a + b, 0);
+        }
       }
     }
   }
 
-  getPercentageOfGrowth() {
+  getPercentageOfGrowth(): void {
     if (this.dashboardYear !== 2018) {
       this.percentageOfGrowth = Math.round(((this.totalAmounts - this.lastTotalAmount) / this.lastTotalAmount) * 100)
     }
   }
 
-  setIndex(index: number) {
+  setIndex(index: number): void {
     this.selectedIndex = index;
   }
 
