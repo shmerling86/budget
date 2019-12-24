@@ -35,10 +35,12 @@ export class AuthService {
     public http: HttpClient,
     public wallService: WallService,
     private router: Router) {
-    localStorage.getItem("email") === '' || localStorage.getItem("email") === null ? this.activeUser = null : this.getActiveUser();
-  }
-
-  getActiveUser() {
+      (localStorage.getItem("email") === '' ||
+      localStorage.getItem("email") == null ||
+      localStorage.getItem("email") == undefined) ? this.activeUser = null : this.getActiveUser();
+    }
+    
+    getActiveUser() {
     this.http.get(`${this.wallService.API_URL}/users?email=${localStorage.getItem("email")}`)
       .subscribe(
         res => {
@@ -48,7 +50,7 @@ export class AuthService {
           this.isConfirmed = false;
         },
         err => { console.log(err) },
-        ()=>{
+        () => {
           this.getActiveUserContributionNum();
         }
       )
@@ -103,8 +105,8 @@ export class AuthService {
       'type': 'user',
       'id': 0
     }
-    this.http.post(`${this.wallService.API_URL}/users`, this.activeUser)
-      .subscribe(err => { console.log(err) })
+
+    this.http.post(`${this.wallService.API_URL}/users`, this.activeUser).subscribe()      
     this.activeUser.timeStamp = moment(this.activeUser.timeStamp).startOf('minutes').fromNow();
     this.signupForm.reset();
   }
