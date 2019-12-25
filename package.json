@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "angular-cli-ghpages": "^0.6.1",
     "angular-fusioncharts": "^3.0.3",
     "bootstrap": "^4.3.1",
     "bootstrap-auto-dismiss-alert": "^1.0.2",

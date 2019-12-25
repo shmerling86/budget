@@ -124,7 +124,7 @@
           }
         },
         "deploy": {
-          "builder": "ngx-gh:deploy",
+          "builder": "angular-cli-ghpages:deploy",
           "options": {}
         }
       }
