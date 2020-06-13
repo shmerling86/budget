@@ -9,22 +9,23 @@ import { ExpenseComponent } from './components/expense/expense.component';
 import { ActivityComponent } from './components/activity/activity.component';
 import { ContributionComponent } from './components/contribution/contribution.component';
 import { UsersComponent } from './components/users/users.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'dashboard-offices'
+    redirectTo: 'dashboard-offices',
+    pathMatch: 'full'
   },
-  { path: 'dashboard-offices', component: DashboardComponent },
   { path: 'dashboard-expenses', component: DashboardExpensesComponent },
+  { path: 'dashboard-offices', component: DashboardComponent },
   { path: 'search', component: WallComponent },
-  { path: 'new-office', component: OfficeComponent},
+  { path: 'new-office', component: OfficeComponent },
   { path: 'new-expense', component: ExpenseComponent },
   { path: 'activity', component: ActivityComponent },
   { path: 'contribution', component: ContributionComponent },
   { path: 'profile', component: UsersComponent },
-  { path: '**', redirectTo: 'dashboard-offices' }
+  { path: 'login', component: LoginComponent }
 
 ]
 

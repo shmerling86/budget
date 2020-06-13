@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
@@ -10,7 +8,6 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
-
 
 
 import { AppComponent } from './app.component';
@@ -29,6 +26,7 @@ import { ContributionComponent } from './components/contribution/contribution.co
 import { SearchComponent } from './components/search/search.component';
 import { DashboardExpensesComponent } from './components/dashboard-expenses/dashboard-expenses.component';
 import { EditExpenseComponent } from './components/wall/edit-expense/edit-expense.component';
+import { MobileComponent } from './components/mobile/mobile.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +45,8 @@ import { EditExpenseComponent } from './components/wall/edit-expense/edit-expens
     ContributionComponent,
     SearchComponent,
     DashboardExpensesComponent,
-    EditExpenseComponent
+    EditExpenseComponent,
+    MobileComponent,
   ],
   imports: [
     BrowserModule,
