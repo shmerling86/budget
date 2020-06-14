@@ -30,9 +30,7 @@ export class WallComponent implements OnInit {
   addForm: FormGroup;
   addExpenseForm: FormGroup;
   years: Array<string> = this.wallService.years
-
   text: string = this.wallService.text;
-  API_URL: any = this.wallService.API_URL
 
   constructor(
     public wallService: WallService,
